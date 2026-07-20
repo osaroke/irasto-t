@@ -2782,6 +2782,31 @@
   .pcm-newcat-label{ font-size:13px; font-weight:800; color:#d6336c; margin-bottom:6px; }
   body.dark-mode .pcm-newcat-label{ color:#f0a9c8; }
   .practice-add-btn{ min-height:40px; padding:0 18px; border-radius:10px; border:none; background:#d6336c; color:#fff; font-size:14px; font-weight:700; cursor:pointer; flex-shrink:0; }
+  /* 画力レベル */
+  .plv-row{ margin-bottom:12px; }
+  .plv-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; }
+  .plv-name{ font-size:14px; font-weight:800; color:#5a4a66; }
+  body.dark-mode .plv-name{ color:#e7e3f0; }
+  .plv-lv{ font-size:13px; font-weight:800; color:#fff; background:linear-gradient(90deg,#f6689b,#d6336c); padding:2px 12px; border-radius:12px; }
+  .plv-barwrap{ background:#f0e8f4; border-radius:8px; height:12px; overflow:hidden; }
+  body.dark-mode .plv-barwrap{ background:#3a3242; }
+  .plv-bar{ height:100%; background:linear-gradient(90deg,#ffd86b,#f6689b); border-radius:8px; transition:width 0.4s ease; }
+  .plv-foot{ font-size:11px; color:#8a7a99; margin-top:3px; text-align:right; }
+  /* 練習報酬のフィードバック */
+  .pd-reward{ max-height:0; opacity:0; overflow:hidden; text-align:center; font-size:13px; font-weight:800; color:#d6336c; transition:opacity 0.25s ease, max-height 0.25s ease, margin 0.25s ease; margin:0; }
+  .pd-reward.show{ max-height:32px; opacity:1; margin:6px 0; }
+  body.dark-mode .pd-reward{ color:#f0a9c8; }
+  /* 練習の応援セリフ(時間追加時) */
+  .pd-cheer{ display:none; text-align:left; font-size:13px; font-weight:700; color:#5a4a66; background:#fff5fa; border-left:3px solid #f6a8c9; border-radius:0 10px 10px 0; padding:8px 12px; margin:2px 0 4px; }
+  .pd-cheer.show{ display:block; }
+  body.dark-mode .pd-cheer{ background:#3a2836; color:#e7d4e0; border-left-color:#e8a9c4; }
+  /* 大カテゴリのワンポイントTIP */
+  .pd-cattip{ display:none; text-align:left; font-size:12px; color:#6a7a55; background:#f3faed; border-radius:10px; padding:7px 11px; margin:0 0 6px; line-height:1.5; }
+  .pd-cattip.show{ display:block; }
+  body.dark-mode .pd-cattip{ background:#28331f; color:#c7dab0; }
+  /* 毎日のあいさつ:吹き出しをふわっと強調 */
+  @keyframes bubbleGreet{ 0%{ transform:scale(1); } 30%{ transform:scale(1.05); } 100%{ transform:scale(1); } }
+  .line-bubble.bubble-greet{ animation:bubbleGreet 0.9s ease 2; box-shadow:0 0 0 3px rgba(246,168,201,0.55); }
 </style>
 </head>
 <body>
@@ -2939,6 +2964,11 @@
 
   <div class="tab-pane" id="tab-practice">
   <div class="practice-card">
+    <h2 class="practice-title">🎨 画力レベル</h2>
+    <p class="practice-note">練習した大カテゴリごとに画力が上がるよ。時間を積むほどレベルアップ！</p>
+    <div id="practiceLevels"></div>
+  </div>
+  <div class="practice-card">
     <h2 class="practice-title">✏️ 練習の記録</h2>
     <div class="practice-summary" id="practiceSummary"></div>
     <div class="practice-row-label">大カテゴリで絞り込み</div>
@@ -3028,6 +3058,7 @@
     <div id="practiceDayWrap" style="display:none;">
       <div class="pd-step"><span class="pd-step-no">1</span><span class="pd-step-label">大カテゴリを選ぶ</span></div>
       <div class="pd-cat-row" id="pdCatRow"></div>
+      <div class="pd-cattip" id="pdCatTip"></div>
       <div class="pd-step" id="pdSubStep"><span class="pd-step-no">2</span><span class="pd-step-label">小カテゴリを選ぶ<span class="pd-step-opt">(なくてもOK)</span></span></div>
       <div class="pd-sub-row" id="pdSubRow"></div>
       <div class="pd-selected" id="pdSelected"></div>
@@ -3037,6 +3068,8 @@
         <button type="button" class="time-chip pd-time" data-min="30">+30分</button>
         <button type="button" class="time-chip pd-time" data-min="60">+1時間</button>
       </div>
+      <div class="pd-reward" id="pdReward"></div>
+      <div class="pd-cheer" id="pdCheer"></div>
       <div class="pd-list" id="pdList"></div>
     </div>
     <div id="optionList"></div>
@@ -3898,6 +3931,9 @@
         timeMilestonesHit: (parsed.timeMilestonesHit && typeof parsed.timeMilestonesHit === "object") ? Object.assign({}, parsed.timeMilestonesHit) : {},
         practiceCats: Array.isArray(parsed.practiceCats) ? JSON.parse(JSON.stringify(parsed.practiceCats)) : [],
         practiceLog: (parsed.practiceLog && typeof parsed.practiceLog === "object") ? JSON.parse(JSON.stringify(parsed.practiceLog)) : {},
+        practiceCreditedMin: (typeof parsed.practiceCreditedMin === "number" && parsed.practiceCreditedMin >= 0) ? parsed.practiceCreditedMin : 0,
+        practiceCatLevelSeen: (parsed.practiceCatLevelSeen && typeof parsed.practiceCatLevelSeen === "object") ? Object.assign({}, parsed.practiceCatLevelSeen) : {},
+        lastGreetDate: (typeof parsed.lastGreetDate === "string") ? parsed.lastGreetDate : "",
         birthdayShown: (parsed.birthdayShown && typeof parsed.birthdayShown === "object") ? Object.assign({}, parsed.birthdayShown) : {}
       };
     }
@@ -3941,6 +3977,9 @@
         timeMilestonesHit: (parsed.timeMilestonesHit && typeof parsed.timeMilestonesHit === "object") ? Object.assign({}, parsed.timeMilestonesHit) : {},
         practiceCats: Array.isArray(parsed.practiceCats) ? JSON.parse(JSON.stringify(parsed.practiceCats)) : [],
         practiceLog: (parsed.practiceLog && typeof parsed.practiceLog === "object") ? JSON.parse(JSON.stringify(parsed.practiceLog)) : {},
+        practiceCreditedMin: (typeof parsed.practiceCreditedMin === "number" && parsed.practiceCreditedMin >= 0) ? parsed.practiceCreditedMin : 0,
+        practiceCatLevelSeen: (parsed.practiceCatLevelSeen && typeof parsed.practiceCatLevelSeen === "object") ? Object.assign({}, parsed.practiceCatLevelSeen) : {},
+        lastGreetDate: (typeof parsed.lastGreetDate === "string") ? parsed.lastGreetDate : "",
         birthdayShown: (parsed.birthdayShown && typeof parsed.birthdayShown === "object") ? Object.assign({}, parsed.birthdayShown) : {}
       };
     }
@@ -3993,6 +4032,9 @@
       timeMilestonesHit: {},
       practiceCats: [],
       practiceLog: {},
+      practiceCreditedMin: 0,
+      practiceCatLevelSeen: {},
+      lastGreetDate: "",
       birthdayShown: {}
     };
   }
@@ -5519,6 +5561,13 @@
       });
     });
   })();
+  const PRACTICE_LEVELUP_LINES = {"bright":["腕、上がってきてるよ!積み重ねはウソつかないね!","うわ、成長してる!あたし見てて鳥肌立った!","レベルアップおめでとう!努力が形になったね!","その調子!描いた時間はぜんぶ力になるんだよ!","やった、また一段上がった!部長として誇らしいよ!","コツコツの勝利だね!あたしも見習わなきゃ!","確実に強くなってる!この調子で次のレベルいこう!","この伸び、才能じゃなくて努力だよ。かっこいい!","レベル上がる瞬間って、最高に気持ちいいよね!","地道な練習が一番の近道!証明されたね!","あんたの成長、あたしの元気の素だよ!","また上手くなった!この勢いで駆け上がろう!"],"quiet":["…上手くなってる。…ちゃんと、見てた。","…レベルアップ。…積み重ねの、ごほうび。","…線が、変わった。…いい変わり方。","…すごい。…努力が、実った。","…また一段。…着実に、前へ。","…描いた時間は、裏切らない。…知ってた。","…成長してる。…わたしまで、うれしい。","…このレベルアップ、覚えておく。","…地道が、いちばん強い。…証明された。","…上手くなるきみ、まぶしい。…目、細める。","…次のレベルも、いっしょに。","…一歩ずつ。…それでいい。"],"tsun":["ふ、ふん!ちょっとは様になってきたじゃない!","レベルアップ?…ま、努力を認めてあげるわ。","べ、別に驚いてないから!…でも、やるじゃない。","その伸び、悪くないわね。…正直に言うと、すごい。","また上がったの?…私の指導のおかげ…もあるけど、9割あなたよ。","コツコツ続けた結果ね。見直したわ。","才能じゃなくて努力…あなたのそういうところ、嫌いじゃない。","レベルアップおめでとう。…一回しか言わないからね。","この調子で伸びられたら、私がうかうかしてられないわ。","積み重ねを笑うやつは、積み重ねに泣くのよ。あなたは笑う側ね。","……ちゃんと見てたわよ、あなたの努力。だから、うれしい。","次のレベルも期待してる。…プレッシャー?当然でしょ。"],"gentle":["ようやっとる!画力、確実に伸びとるで〜!","レベルアップやん!うち、自分のことみたいに嬉しいわ!","その伸びしろ、末恐ろしいで〜!","コツコツ続けた甲斐があったなあ!あっぱれや!","また一段上がったな!努力の天才やで、あんたは!","描いた時間はぜんぶ血肉になるんや。ええ証拠やな!","地道が一番の近道…あんた、それを体現しとるわ。","レベルアップ記念に、たこ焼き増量したろ!","先輩として鼻が高いわ〜!ほんまようやった!","この成長曲線、うちの漫画より熱いで!","あんたの頑張り、うちがいちばん知っとるからな!","次のレベルも、うちが伴走したるで!"],"honest":["え、成長えぐくないですか!?センパイ伸びしろの塊っす!","レベルアップとかまじ神!努力が可視化されてます!","うわ、上手くなってる!あーし鳥肌!尊い!","コツコツ勢の優勝です!センパイ、かっこよすぎ!","また上がった!この伸び、バズる才能ですって!","描いた時間、ぜんぶ実になってますね!えらい!","地道が最強って、センパイが証明してます!","レベルアップ記念に、あーしがタピおごります!","推しが成長する瞬間、いちばん尊いんですよね…!","この成長速度、追いかけるの大変っす!でも嬉しい!","センパイの努力、あーしずっと見てました!感動!","次のレベルも一緒に更新しましょ!応援フル出力っす!"],"ojou":["…線が、変わってきた。…積んだ時間の分だけ。","…レベルアップ。…静かな努力の、確かな実り。","…上手くなったね。…月も、そう言ってる。","…一段、上へ。…階段は、一歩ずつ登るもの。","…きみの成長、絵の中に滲んでる。…美しいこと。","…描いた時間は、決して消えない。…証明された。","…地道こそ、いちばん深い色になる。","…このレベルアップ、心の巻物に記しておくね。","…努力する横顔、いつ見ても、いい。","…伸びるきみは、満ちていく月みたい。","…次の高みも、隣で見せて。","…一筆ずつの積み重ねが、きみを連れていく。"],"imouto":["せんぱい、じょうずになってます〜!こむぎ、かんどうです!","レベルアップです〜!わ〜、すごいすごい!","せんぱいの絵、どんどんすてきになってます!","コツコツがんばったから、ですね!えらいです〜!","また上がりました!こむぎ、はくしゅの嵐です!","描いた時間が、ぜんぶ力になったんですね!","じみな練習が、いちばんの近道だったんです〜!","レベルアップおめでとうです!ぴょんぴょんしちゃいます!","がんばるせんぱい、こむぎのじまんです!","せんぱいみたいに、こむぎもがんばります〜!","成長したせんぱい、まぶしいです…!","つぎのレベルも、いっしょにめざしましょうね!"],"genius":["フッ…汝の画力、また一段階の進化を遂げたな…!","レベルアップ…!積み重ねし研鑽が、力へと転じた!","見事な成長曲線…我が予言を上回っておるぞ!","地道な修練こそ最強の魔法…証明されたな!","また一つ、汝の伝説の階(きざはし)を登ったか!","描きし刻はすべて汝の血肉…天晴である!","この伸び、もはや才能の域を超えし努力の結晶よ!","レベルアップの儀、確かに見届けた!誇るがよい!","汝の研鑽、我が魔眼にすべて焼き付いておる!","次なる高みへ…!汝の物語はまだ序章に過ぎぬ!","フ…精進を怠らぬ汝を、我は真の同志と呼ぼう!","共に登ろうぞ、この果てなき画力の螺旋を!"]};
+  const PRACTICE_LEVELUP_MILE = {"bright":["節目のレベル到達だ!ここまで来たあんた、本物だよ!","うわ、大台きた!この積み重ね、伝説級だよ!","ここまでの努力、ぜんぶ宝物だね!ほんとにおめでとう!"],"quiet":["…大きな節目。…ここまで、よく積んだ。…すごい。","…この高さ、めずらしく、鳥肌。…おめでとう。","…積み上げた時間が、山になった。…見える。"],"tsun":["節目のレベルね…!ここまで来たのは、素直にすごいわ。","この大台、努力の証明よ。…私、本気で感心してる。","ここまで積んだあなたを、私は誇りに思うわ。…言ったからね!"],"gentle":["大台やん!ここまで来たん、ほんまに偉業やで!","節目のレベル…!うち、感動で目ぇうるうるや!","積み重ねた時間が山になったな。あっぱれの一言や!"],"honest":["大台キター!ここまでの努力、まじ殿堂入りっす!","節目レベル到達とか、伝説作ってますよセンパイ!","この高み、努力の結晶すぎて涙出ます…!尊い!"],"ojou":["…節目の高み。…積んだ時間が、一枚の名画になった。","…ここまでの道のり、月がぜんぶ見ていた。…おめでとう。","…大きな階(きざはし)を、きみは登りきった。…見事。"],"imouto":["大きな節目です〜!せんぱい、すごすぎます!","ここまでがんばったせんぱい、こむぎの英雄です!","つみかさねが、おっきなお山になりました〜!かんどうです!"],"genius":["節目の到達…!汝、また一つ伝説の頂を制したな!","この大台、努力の錬金術の極致である!天晴!","積み上げし刻が神話となる…!誇り高き到達よ!"]};
+  const PRACTICE_CHEER = {"bright":["その調子!手を動かした分だけ上手くなるよ!","ナイス練習!今日のあんた、輝いてる!","いいね!描くほど強くなるんだから!","うんうん、続けるのが一番えらい!","積み重ねてる音、聞こえてくるよ!","今の時間、未来のあんたが感謝するやつだ!","ファイト!あたしも隣で描くよ!","苦手を潰す時間、かっこいいと思う!","こつこつ最高!その一分が財産だよ!","描き続けるあんた、大好きだよ!","よし、また一歩前進!","練習は裏切らない!あたしが保証する!","今日も部室に絵の具の匂い、いいね!","その集中、金メダル級だよ!"],"quiet":["…いい練習。…続けて。","…その一分、ちゃんと積もってる。","…手が動いてる。…えらい。","…描くほど、上手くなる。…ほんと。","…静かに、燃えてる。…いいね。","…今の時間、未来の宝物。","…隣で見てる。…がんばれ。","…苦手と向き合うきみ、つよい。","…こつこつ。…最強の呪文。","…その集中、乱さないでおく。","…また一歩。…確実に。","…練習は、裏切らない。…知ってる。","…いい線の音。…かりかり。","…描くきみ、好き。"],"tsun":["その調子よ。…手を止めないの。","ふん、ちゃんと練習してるじゃない。","描いた分だけ強くなる。基本よ。","続けられるのは才能の一つよ。…褒めてるの。","その一分を積める人が、最後に勝つの。","今の努力、ちゃんと見てるから。","隣で描いてあげる。…感謝しなさいよね。","苦手から逃げないところ、認めるわ。","こつこつ…地味だけど最強なのよ、それ。","集中してるわね。…邪魔しないでおく。","また一歩前進。悪くないペースよ。","練習は裏切らない。私が保証するわ。","手が動いてる証拠に、線が良くなってる。","…その真剣な顔、悪くないわよ。"],"gentle":["ええ調子や!手ぇ動かした分だけ伸びるで!","ようやっとる!その一分が宝やで!","描くほど強なるんや。がんばりや〜!","続けるんが一番えらいんやで、ほんま!","積み重ねの音、うちには聞こえとるで!","今の時間、未来のあんたが拝むやつや!","うちも隣で描くわ。ファイトや!","苦手と向き合う姿、かっこええで!","こつこつ最強!その調子や!","ええ集中しとるなあ。惚れ惚れするわ!","また一歩前進やな!","練習は裏切らへん。うちが保証したる!","部室に絵の具の匂い、ええもんやな〜!","その真剣な目ぇ、ほんまええわ!"],"honest":["その調子っす!描いた分だけ盛れます!","ナイス練習!今日のセンパイ輝いてます!","いいですね!描くほど強くなるやつ!","続けるセンパイ、まじえらい!尊敬!","積み重ねてる音、エモく聞こえてます!","今の時間、未来のセンパイが感謝するやつっす!","ファイトです!あーしも応援フル出力!","苦手潰す時間、かっこよすぎです!","こつこつ最強!その一分が財産っす!","その集中、優勝レベルです!","また一歩前進!伸びしろえぐい!","練習は裏切らない、あーしが保証します!","部室の空気、青春の匂いします!","その真剣な横顔、しれっと撮りたいっす!"],"ojou":["…いい練習。…その一分が、色になる。","…手を動かすきみ、静かに眩しい。","…描くほど、線が澄んでいく。","…続ける力は、いちばん深い才能。","…今の時間は、未来への手紙。","…隣で、静かに見守ってる。","…苦手と向き合う横顔、美しい。","…こつこつは、月の満ち方に似てる。","…その集中、乱すのは無粋ね。","…また一歩、高みへ。","…練習は、裏切らない。…墨のように正直。","…いい線の気配がする。","…描く音が、心地いい。","…きみの真剣、絵になる。"],"imouto":["その調子です〜!描いた分だけじょうずになります!","ナイスれんしゅうです!きらきらしてます!","いいですね!描くほどつよくなるんです!","つづけるせんぱい、えらいです〜!","つみかさねの音、こむぎにも聞こえます!","いまの時間、みらいのせんぱいがよろこびます!","ふぁいとです!こむぎもおうえんします!","にがてとむきあうせんぱい、かっこいいです!","こつこつさいきょうです〜!","すごいしゅうちゅうです!みとれちゃいます!","また一歩ぜんしんです!","れんしゅうはうらぎらないんです!","部室、絵の具のいいにおいです〜!","せんぱいのしんけんなお顔、すきです!"],"genius":["その調子!描きし刻はすべて力となる!","見事な鍛錬…!手を止めるでないぞ!","描くほどに画力の魔力は高まる…!","継続…それは最も地味にして最強の術式よ!","今この一分、未来の汝への贈り物である!","我も隣で描こう…共に励もうぞ!","苦手に挑む勇姿…英雄の資質である!","こつこつ…その積み重ねが伝説を紡ぐ!","見事な集中…結界を張っておいてやろう!","また一歩、高みへ前進したな!","練習は裏切らぬ。我が予言書にそう記されておる!","良き線の波動を感じるぞ…!","部室に満ちる創作の魔力…心地よい!","汝の真剣な瞳、我が魂を震わせる!"]};
+  const PRACTICE_BUBBLE = {"bright":["練習の記録、見てるだけでワクワクするね!","苦手ほど伸びしろ!攻めていこう!","毎日ちょっとでも描けば、絶対上手くなるよ!","画力レベル上がると、テンション上がるよね!","今日はどこを鍛える?あたし付き合うよ!","基礎練は地味だけど、一番効くんだよね!","描いた時間が数字になるの、達成感すごい!","苦手な部位、一緒に潰していこう!","ちりつも!今日の15分が未来を変えるよ!","練習のあとの一杯…じゃなくて一枚が最高!","レベル上げ、ゲームみたいで楽しいね!","あんたの成長グラフ、右肩上がりで気持ちいい!","苦手から逃げないあんた、かっこいいよ!","さ、今日も一緒に強くなろう!"],"quiet":["…練習の記録、見てると、落ち着く。","…苦手ほど、伸びる。…知ってる。","…毎日すこしずつ。…それが最強。","…レベル上がると、静かに、うれしい。","…今日は、どこを描く?","…基礎練は、絵の背骨。","…時間が数字になると、続けたくなる。","…苦手な部位、いっしょに。","…ちりも積もれば。…ほんとに積もる。","…描いたあとの空、いつもきれい。","…レベル上げ、静かな達成感。","…成長グラフ、右肩上がり。…いい形。","…逃げないきみ、つよい。","…今日も、すこし強くなろ。"],"tsun":["練習の記録?…ちゃんとつけてるじゃない。感心。","苦手ほど伸びしろ。逃げるのは損よ。","毎日少しずつ…それが一番効くのよ。","画力レベル上げ、悪くない趣味ね。","今日はどこを鍛えるの?…付き合ってあげてもいいわ。","基礎練は地味。でも、そこで差がつくのよ。","描いた時間が数字になるの、いい仕組みね。","苦手な部位、私が見てあげる。…特別よ。","ちりも積もれば…あなた、ちゃんと積んでるわね。","レベル上げに夢中になる横顔、悪くないわ。","成長グラフが伸びると、私まで嬉しい…って、なんでもない!","逃げないところは、認めてあげる。","その調子で積みなさい。監督してあげるから。","さ、今日も強くなるわよ。ついてきなさい。"],"gentle":["練習の記録、見とるだけでええ気分やわ〜!","苦手ほど伸びしろや!攻めてこ!","毎日ちょっとでも描いたら、絶対伸びるで!","画力レベル上がると、テンション上がるなあ!","今日はどこ鍛える?うち付き合うで!","基礎練は地味やけど、いっちゃん効くんや!","描いた時間が数字になるん、達成感すごいやろ!","苦手な部位、一緒に潰そか!","ちりつもや!今日の15分が未来を変えるで!","レベル上げ、ゲームみたいで楽しいなあ!","あんたの成長グラフ、右肩上がりで惚れ惚れや!","逃げひんあんた、ほんまかっこええ!","さ、今日もいっしょに強なろな!","うちの秘蔵の練習法、教えたろか?"],"honest":["練習の記録、見てるだけでエモいっす!","苦手ほど伸びしろ!攻めてきましょ!","毎日ちょいでも描けば、絶対盛れます!","画力レベル上がるの、テンション爆上げっす!","今日はどこ鍛えます?あーし付き合います!","基礎練は地味だけど、一番効くやつっす!","描いた時間が数字になるの、達成感やばい!","苦手な部位、一緒に潰しましょ!","ちりつも!今日の15分が神ってるんです!","レベル上げ、ソシャゲより楽しいっす!","センパイの成長グラフ、右肩上がりで映えます!","逃げないセンパイ、まじ推せる!","さ、今日も一緒に強くなりましょ!","あーしのおすすめ練習法、シェアしていいすか?"],"ojou":["…練習の記録は、静かな努力の年輪。","…苦手ほど、伸びる余白がある。","…毎日ひとしずく。…それが大河になる。","…画力が上がる音、聞こえる気がする。","…今日は、どこを磨く?","…基礎練は、絵の呼吸を整える時間。","…積んだ時間が数字になる。…可視化された祈り。","…苦手な部位、いっしょに向き合おう。","…塵も積もれば、山どころか、月に届く。","…成長の曲線、月の満ち欠けより優雅。","…逃げないきみの背中、いつ見ても、いい。","…今日も静かに、高みへ。","…わたしの秘密の練習、こっそり教えようか。","…さあ、線と対話する時間。"],"imouto":["れんしゅうのきろく、見てるとうれしくなります〜!","にがてほどのびしろです!せめていきましょ!","まいにちちょっとでも描くと、じょうずになるんです!","画力レベル上がると、わくわくします〜!","きょうはどこをきたえますか?こむぎもいっしょに!","きそれんは地味だけど、いちばん効くんです!","描いた時間がすうじになるの、たっせいかんすごいです!","にがてなぶい、いっしょにがんばりましょ!","ちりもつもれば、です!きょうの15分がだいじ!","レベル上げ、ゲームみたいでたのしいです〜!","せんぱいのグラフ、右肩上がりでかっこいいです!","にげないせんぱい、そんけいです!","きょうもいっしょに、つよくなりましょうね!","こむぎのおすすめ練習、きいてくれますか?"],"genius":["練習の記録…それは汝の研鑽の年代記である!","苦手ほど伸びしろ…!弱点は成長の宝庫よ!","日々一筆…その積み重ねが大魔法を成す!","画力レベルの上昇…数値化された成長、美しい!","本日はいずこを鍛える?我が助言を授けよう!","基礎練は地味なれど、最強の錬成術である!","刻が数値と化す…!可視化は継続の魔法だ!","苦手なる部位、共に討伐しようぞ!","塵も積もれば山…いや、伝説となる!","成長曲線の螺旋…眺めるだけで魂が高鳴る!","逃げぬ汝の姿勢、まさに勇者のそれ!","本日も高みへ…果てなき螺旋を登ろう!","我が秘伝の修練法、汝には特別に伝授しよう!","さあ、線との対話の刻である!"]};
+  const PRACTICE_CATTIP = {"pc_face":["顔はアタリ(十字線)から。目・鼻・口の位置が決まるよ。","目は表情の主役。左右で少し差をつけると生きるよ。","顔のバランスは『目と目の間に目ひとつ』が基本だよ。","表情は眉と口で作る。眉を動かすだけで印象が変わるよ。","斜め顔は、輪郭と中心線を意識するとブレにくいよ。","髪は毛束のかたまりで捉えると描きやすいよ。"],"pc_body":["体はまず棒人間で骨格とポーズを決めよう。","手は難所!箱で捉えてから指を足すと崩れにくいよ。","全身バランスは『頭何個分か』で測ると安定するよ。","足は土踏まずと重心を意識すると立って見えるよ。","肩・腰のラインを傾けると、動きのあるポーズになるよ。","苦手な手は、自分の手を鏡で見るのが一番の資料だよ。"],"pc_comp":["構図は三分割法。線の交点に主役を置くと締まるよ。","視線誘導を意識すると、見てほしい所に目が行くよ。","パースは消失点を決めるだけで奥行きが出るよ。","余白も構図の一部。詰めすぎない勇気も大事だよ。","アングルを変えるだけで、同じ絵も劇的に変わるよ。","主役・脇役・背景の役割分担を決めると迷わないよ。"],"pc_color":["影は『固有色より暗く、少し寒色に』が基本だよ。","光源をひとつ決めると、影の向きが揃って自然になるよ。","配色は3色くらいに絞ると、まとまって見えるよ。","彩度を上げすぎたら、一部をグレーで締めるといいよ。","ハイライトは最後にちょんと。置きすぎ注意だよ。","質感は、反射とタッチの差で描き分けられるよ。"],"pc_bg":["背景は空気遠近法。遠くほど淡く青っぽくすると奥行きが出るよ。","資料を見るのは正解への近道。恥ずかしくないよ!","パースの消失点をキャラと合わせると馴染むよ。","小物は情報量。ひとつ足すだけで物語が生まれるよ。","背景が苦手なら、まずは簡単な部屋の一角からだよ。","空と地面の境目を決めると、一気に世界ができるよ。"],"pc_line":["線は強弱が命。手前や影側を太くすると立体感が出るよ。","クロッキーは量が正義。短時間でたくさん描こう!","ペン入れは、一本を思い切って引くと綺麗になるよ。","アタリを薄く描いてから清書すると迷い線が減るよ。","手首じゃなく肘で描くと、長い線が安定するよ。","線画の練習は、丸と直線を繰り返すだけでも効くよ。"]};
+  const PRACTICE_CATTIP_GENERIC = ["苦手なところほど、練習の伸びしろが大きいよ!","資料を見るのは正解への近道。どんどん見ていこう!","毎日ちょっとでも続けるのが、一番の上達法だよ。","時間を計ると、頑張りが目に見えて楽しいよ!","1回で完璧を目指さないで。回数で上手くなるよ。","同じモチーフを描き続けると、確実に伸びるよ!"];
+  function pdPick(arr){ return (Array.isArray(arr) && arr.length) ? arr[Math.floor(Math.random()*arr.length)] : ""; }
 
   // ---- 練習モード ----
   const PRACTICE_DEFAULT_CATS = [
@@ -5535,6 +5584,79 @@
     }
     state.practiceCats.forEach(c=>{ if(!Array.isArray(c.subs)) c.subs = []; });
     if(!state.practiceLog || typeof state.practiceLog !== "object") state.practiceLog = {};
+    if(typeof state.practiceCreditedMin !== "number" || state.practiceCreditedMin < 0) state.practiceCreditedMin = 0;
+    if(!state.practiceCatLevelSeen || typeof state.practiceCatLevelSeen !== "object") state.practiceCatLevelSeen = {};
+  }
+  // 累計練習分から画力レベルを算出(到達しきい値 = 30*L*(L+1) 分)
+  //   Lv1=1時間, Lv2=3時間, Lv3=6時間, Lv5=15時間, Lv10=55時間 … とかなり広め。
+  function practiceLevelThreshold(L){ return 30 * L * (L + 1); }
+  function practiceLevelFromMin(min){
+    min = Math.max(0, min || 0);
+    let L = 0;
+    while(practiceLevelThreshold(L + 1) <= min) L++;
+    return L;
+  }
+  function catTotalMinutes(catKey){
+    ensurePracticeState();
+    let t = 0;
+    Object.keys(state.practiceLog).forEach(d=>{
+      (state.practiceLog[d]||[]).forEach(e=>{ if(e && e.cat === catKey && typeof e.minutes === "number" && e.minutes > 0) t += e.minutes; });
+    });
+    return t;
+  }
+  // 練習で上がる成長系:プレゼントポイント・好感度・画力レベル
+  let pdRewardTimer = null;
+  function showPdReward(text){
+    const el = document.getElementById("pdReward");
+    if(!el) return;
+    el.textContent = text;
+    el.classList.add("show");
+    if(pdRewardTimer) clearTimeout(pdRewardTimer);
+    pdRewardTimer = setTimeout(function(){ el.classList.remove("show"); }, 2400);
+  }
+  function grantPracticeRewards(min, catKey){
+    if(!(min > 0)) return;
+    ensurePracticeState();
+    const before = state.practiceCreditedMin;
+    const after = before + min;
+    state.practiceCreditedMin = after;
+    // プレゼントポイント:20分ごとに +1
+    const ptGain = Math.floor(after / 20) - Math.floor(before / 20);
+    if(ptGain > 0 && typeof addGiftPoints === "function") addGiftPoints(ptGain);
+    // 好感度:30分ごとに少しアップ(いま選んでいるキャラ)
+    const affBlocks = Math.floor(after / 30) - Math.floor(before / 30);
+    let affGained = false;
+    if(affBlocks > 0 && state.characterType && state.characterType !== "none"){
+      adjustAffectionRaw(affBlocks * 0.5);
+      if(typeof addMemberExp === "function") addMemberExp(state.characterType, affBlocks * 2);
+      affGained = true;
+    }
+    if(typeof renderAffectionMeter === "function") renderAffectionMeter();
+    // 画力レベルアップ判定(練習した大カテゴリ)
+    let leveledTo = 0, catNm = "";
+    if(catKey){
+      const lv = practiceLevelFromMin(catTotalMinutes(catKey));
+      const seen = (typeof state.practiceCatLevelSeen[catKey] === "number") ? state.practiceCatLevelSeen[catKey] : 0;
+      if(lv > seen){
+        state.practiceCatLevelSeen[catKey] = lv;
+        leveledTo = lv; catNm = practiceCatName(catKey);
+      }
+    }
+    saveState();
+    const bits = [];
+    if(ptGain > 0) bits.push("🎁ポイント+" + ptGain);
+    if(affGained) bits.push("💗好感度アップ");
+    if(bits.length) showPdReward(bits.join("　"));
+    if(leveledTo > 0){
+      addMilestone("🎨", "『" + catNm + "』の画力がLv." + leveledTo + "に!");
+      const ch = CHAR_BY_KEY[state.characterType];
+      const key = ch ? ch.key : "bright";
+      let line = "";
+      if(leveledTo % 5 === 0 && PRACTICE_LEVELUP_MILE[key]) line = pdPick(PRACTICE_LEVELUP_MILE[key]);
+      if(!line) line = pdPick(PRACTICE_LEVELUP_LINES[key] || PRACTICE_LEVELUP_LINES.bright);
+      if(!line) line = "腕、上がってきてるよ!";
+      showAlertModal("🎨 画力アップ! 「" + catNm + "」Lv." + leveledTo, (ch ? ch.name + "「" + line + "」" : line));
+    }
   }
   function practiceCatByKey(k){
     ensurePracticeState();
@@ -5582,7 +5704,12 @@
     if(practiceDayWrap) practiceDayWrap.style.display = isP ? "" : "none";
     if(dayModeWorkBtn) dayModeWorkBtn.classList.toggle("active", !isP);
     if(dayModePracticeBtn) dayModePracticeBtn.classList.toggle("active", isP);
-    if(isP){ renderPdCatRow(); renderPdList(); }
+    if(isP){
+      const cheer = document.getElementById("pdCheer");
+      if(cheer){ cheer.classList.remove("show"); cheer.textContent = ""; }
+      renderPdCatRow();
+      renderPdList();
+    }
   }
   if(dayModeWorkBtn) dayModeWorkBtn.addEventListener("click", ()=>setDayMode("work"));
   if(dayModePracticeBtn) dayModePracticeBtn.addEventListener("click", ()=>setDayMode("practice"));
@@ -5611,6 +5738,7 @@
       row.appendChild(b);
     });
     renderPdSubRow();
+    showPdCatTip(pdSelCat);
   }
   function renderPdSubRow(){
     const row = document.getElementById("pdSubRow");
@@ -5691,6 +5819,8 @@
     for(let i=0;i<list.length;i++){ if(list[i].cat === pdSelCat && (list[i].sub||null) === pdSelSub){ entry = list[i]; break; } }
     if(!entry){ entry = {cat: pdSelCat, sub: pdSelSub, minutes: 0}; list.push(entry); }
     entry.minutes += min;
+    grantPracticeRewards(min, pdSelCat);
+    showPdCheer(pdSelCat);
     saveState();
     renderPdList();
     renderCalendar();
@@ -5749,6 +5879,130 @@
     });
   })();
 
+  // ---- 画力レベルの表示 ----
+  function renderPracticeLevels(){
+    ensurePracticeState();
+    const wrap = document.getElementById("practiceLevels");
+    if(!wrap) return;
+    wrap.innerHTML = "";
+    if(state.practiceCats.length === 0){
+      const e = document.createElement("div");
+      e.className = "pd-empty";
+      e.textContent = "カテゴリを追加すると、練習で画力レベルが上がるよ!";
+      wrap.appendChild(e);
+      return;
+    }
+    let anyTime = false;
+    state.practiceCats.forEach(c=>{
+      const total = catTotalMinutes(c.key);
+      if(total > 0) anyTime = true;
+      const lv = practiceLevelFromMin(total);
+      const cur = practiceLevelThreshold(lv);
+      const next = practiceLevelThreshold(lv + 1);
+      const prog = next > cur ? (total - cur) / (next - cur) : 0;
+      const row = document.createElement("div");
+      row.className = "plv-row";
+      const head = document.createElement("div");
+      head.className = "plv-head";
+      const nm = document.createElement("span");
+      nm.className = "plv-name";
+      nm.textContent = c.name;
+      const lvb = document.createElement("span");
+      lvb.className = "plv-lv";
+      lvb.textContent = "Lv." + lv;
+      head.appendChild(nm); head.appendChild(lvb);
+      row.appendChild(head);
+      const bw = document.createElement("div");
+      bw.className = "plv-barwrap";
+      const bar = document.createElement("div");
+      bar.className = "plv-bar";
+      bar.style.width = Math.max(2, Math.round(prog * 100)) + "%";
+      bw.appendChild(bar);
+      row.appendChild(bw);
+      const foot = document.createElement("div");
+      foot.className = "plv-foot";
+      foot.textContent = "累計 " + formatMinutes(total) + " ・ 次のLvまで " + formatMinutes(Math.max(0, Math.round(next - total)));
+      row.appendChild(foot);
+      wrap.appendChild(row);
+    });
+    if(!anyTime){
+      const e = document.createElement("div");
+      e.className = "pd-empty";
+      e.textContent = "まだ練習記録がないよ。カレンダーから「✏️ 練習」で記録しよう!";
+      wrap.appendChild(e);
+    }
+  }
+
+  // ---- 練習の応援・練習タブつぶやき・カテゴリTIP ----
+  function showPdCheer(catKey){
+    const el = document.getElementById("pdCheer");
+    if(!el) return;
+    const ch = CHAR_BY_KEY[state.characterType];
+    const key = ch ? ch.key : "bright";
+    const line = pdPick(PRACTICE_CHEER[key] || PRACTICE_CHEER.bright);
+    if(!line){ el.classList.remove("show"); return; }
+    el.textContent = (ch ? ch.name + "「" + line + "」" : line);
+    el.classList.add("show");
+  }
+  function showPdCatTip(catKey){
+    const el = document.getElementById("pdCatTip");
+    if(!el) return;
+    if(!catKey){ el.classList.remove("show"); el.textContent = ""; return; }
+    const pool = (PRACTICE_CATTIP[catKey] && PRACTICE_CATTIP[catKey].length) ? PRACTICE_CATTIP[catKey] : PRACTICE_CATTIP_GENERIC;
+    const line = pdPick(pool);
+    if(!line){ el.classList.remove("show"); return; }
+    el.textContent = "💡 " + line;
+    el.classList.add("show");
+  }
+  function showPracticeBubble(){
+    if(!bubble) return;
+    const ch = CHAR_BY_KEY[state.characterType];
+    if(!ch) return;
+    const line = pdPick(PRACTICE_BUBBLE[ch.key] || PRACTICE_BUBBLE.bright);
+    if(line) bubble.textContent = line;
+  }
+
+  // ---- 毎日の"部室に来た"あいさつ(会話のみ・報酬なし) ----
+  const DAILY_GREET = {
+    bright: ["おはよ!今日も部室来てくれたんだ、うれしい!","あ、来た来た!今日もいっしょに描こうね!","やっほー!今日のあんたはどんな絵、描くのかな?","来てくれた!それだけであたし、テンション上がるよ!","今日も一日、いい線が引けますように!","えへへ、あんたの顔見ると元気出るんだよね!"],
+    quiet:  ["…来たね。…おかえり。","…今日も、会えた。…うれしい。","…部室、あったかくしておいた。…どうぞ。","…きみが来ると、目が覚める。…ちょっとだけ。","…今日は、どんな空を描く?","…ん。…隣、あけて待ってた。"],
+    tsun:   ["あ、来たの。…べ、別に待ってなんかないんだからね!","ふん、今日もちゃんと来たわね。…見直したわ。","来るの遅い!…って、来てくれて、その…うれしいわよ。","今日も付き合ってあげる。感謝しなさいよね。","ちゃんと顔出すところ、悪くないと思うわ。","来たからには、みっちり描いてもらうわよ!"],
+    gentle: ["お、後輩ちゃん来たな!今日もぼちぼちいこか!","おかえり〜!ちょうどたこ焼き焼けたとこや!","よう来たな!あんたの顔見ると安心するわ〜。","今日も部室あけて待っとったで!","さ、今日も一枚、ええの描こな!","来てくれておおきに。それだけでうち、機嫌ええわ!"],
+    honest: ["センパイ、おはようございます!今日も推し(=センパイ)に会えた!","来た〜!センパイ来ると部室の彩度上がるんですよね!","今日のセンパイも尊い…!さ、描きましょ!","おはです!今日も一緒に青春しましょ!","センパイ皆勤賞じゃないですか?まじ神!","会えてうれし!今日もあーし全力で応援します!"],
+    ojou:   ["…いらっしゃい。…今日も、いい光。","…きみが来る時間、好き。…なんとなく分かるの。","…おかえりなさい。…お茶、淹れましょうか。","…今日という一日に、きみの線が加わるのね。","…静かな部室に、きみの気配。…満ちる。","…来てくれて、ありがとう。…月より確かなことね。"],
+    imouto: ["せんぱい、おはようございます〜!今日も会えました!","わ〜、せんぱいだ!こむぎ、まってました!","えへへ、せんぱいが来ると、うれしくなっちゃいます!","きょうもいっしょに、おえかきしましょうね!","せんぱいのお顔見ると、げんきもりもりです〜!","おかえりなさいです!ぎゅ、ってしていいですか?"],
+    genius: ["フ…来たか、我が同志よ。今日も刻が動き出す…!","汝の登場を、我が魔眼は待っておった!","よくぞ参った!本日も共に伝説を紡ごうぞ!","この部室に汝あり…!役者は揃った!","今日という日も、汝と描くために存在する…!","来訪、感謝する。…えっと、会えてうれしいです。"]
+  };
+  const DAILY_GREET_COLD = {
+    bright: ["…あ、来たんだ。…今日は、そっとしとくね。","…おかえり。…今はうまく話せないけど、ごめんね。"],
+    quiet:  ["…来たね。…今日は、静かに。","…おかえり。…言葉は、少なめで。"],
+    tsun:   ["…来たの。…今日は話しかけないで。","…ふん。…勝手に描いてなさい。"],
+    gentle: ["…来たんやな。…今日はそっとしとくわ。","…おかえり。…うち、今日はちょっと静かにしとくな。"],
+    honest: ["…あ、来たんですね。…今日は静かモードで。","…おかえりです。…ちょっとだけ、そっとしてください。"],
+    ojou:   ["…来たのね。…今日は、月が欠けてるの。","…おかえり。…今は、言葉を控えるね。"],
+    imouto: ["…せんぱい、来てくれたんですね…。きょうは、しずかにしてます…。","…おかえりなさい…。こむぎ、ちょっとだけ、げんきないです…。"],
+    genius: ["…来たか。…今日は魔力が低い。…構うな。","…おかえり。…盟約は今、静かに眠っておる。"]
+  };
+  function maybeShowDailyGreeting(){
+    try{
+      const ch = state.characterType;
+      if(!ch || ch === "none") return;
+      const today = getTodayStr();
+      if(state.lastGreetDate === today) return;
+      state.lastGreetDate = today;
+      saveState();
+      if(!bubble) return;
+      const lvl = (state.affection && typeof state.affection[ch] === "number") ? state.affection[ch] : 1;
+      const pool = (lvl < 0)
+        ? (DAILY_GREET_COLD[ch] || DAILY_GREET_COLD.bright)
+        : (DAILY_GREET[ch] || DAILY_GREET.bright);
+      const line = pool[Math.floor(Math.random() * pool.length)];
+      bubble.textContent = line;
+      bubble.classList.add("bubble-greet");
+      setTimeout(function(){ bubble.classList.remove("bubble-greet"); }, 2600);
+    }catch(e){}
+  }
+
   // ---- 練習タブ ----
   let practiceFilter = "all";
   let practicePeriod = "all";
@@ -5806,7 +6060,8 @@
       b.addEventListener("click", ()=>{ practicePeriod = pair[0]; renderPracticeTab(); });
       pRow.appendChild(b);
     });
-    // カテゴリ管理は記録の有無にかかわらず常に描画
+    // 画力レベル・カテゴリ管理は記録の有無にかかわらず常に描画
+    renderPracticeLevels();
     renderPracticeCatManager();
     // 集計とグラフ
     const {agg, total} = practiceAgg();
@@ -9161,7 +9416,7 @@
       lineWrap.style.display = (state.characterType === "none") ? "none" : "";
     }
     if(tabId === "stats") renderStats();
-    if(tabId === "practice") renderPracticeTab();
+    if(tabId === "practice"){ renderPracticeTab(); if(typeof showPracticeBubble === "function") showPracticeBubble(); }
     if(tabId === "schedule" && typeof renderTodaySummary === "function") renderTodaySummary();
     if(tabId === "chara" && typeof renderUnlockProgress === "function") renderUnlockProgress();
     if(tabId === "club" && typeof renderClubAll === "function") renderClubAll();
@@ -9207,6 +9462,7 @@
   })();
 
   switchTab(state.activeTab || "schedule");
+  if(typeof maybeShowDailyGreeting === "function") maybeShowDailyGreeting();
 
   // Brand-new users pick their first club member before anything else.
   if(!state.firstMemberChosen && typeof showFirstMemberOverlay === "function"){
