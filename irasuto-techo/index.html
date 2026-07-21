@@ -3209,15 +3209,6 @@
   </div>
 </div>
 
-<div class="overlay" id="storyOverlay">
-  <div class="modal story-modal">
-    <h3 id="storyTitle">ストーリー</h3>
-    <div class="story-body" id="storyBody"></div>
-    <div class="modal-actions">
-      <button class="btn-close" id="storyClose">とじる</button>
-    </div>
-  </div>
-</div>
 <div class="overlay" id="genericAlertOverlay">
   <div class="modal complete-confirm-modal">
     <h3 id="genericAlertTitle">お知らせ</h3>
@@ -3943,8 +3934,6 @@
         practiceCreditedMin: (typeof parsed.practiceCreditedMin === "number" && parsed.practiceCreditedMin >= 0) ? parsed.practiceCreditedMin : 0,
         practiceCatLevelSeen: (parsed.practiceCatLevelSeen && typeof parsed.practiceCatLevelSeen === "object") ? Object.assign({}, parsed.practiceCatLevelSeen) : {},
         lastGreetDate: (typeof parsed.lastGreetDate === "string") ? parsed.lastGreetDate : "",
-        storyRead: (parsed.storyRead && typeof parsed.storyRead === "object") ? JSON.parse(JSON.stringify(parsed.storyRead)) : {},
-        storyUnlockSeen: (parsed.storyUnlockSeen && typeof parsed.storyUnlockSeen === "object") ? Object.assign({}, parsed.storyUnlockSeen) : {},
         birthdayShown: (parsed.birthdayShown && typeof parsed.birthdayShown === "object") ? Object.assign({}, parsed.birthdayShown) : {}
       };
     }
@@ -3991,8 +3980,6 @@
         practiceCreditedMin: (typeof parsed.practiceCreditedMin === "number" && parsed.practiceCreditedMin >= 0) ? parsed.practiceCreditedMin : 0,
         practiceCatLevelSeen: (parsed.practiceCatLevelSeen && typeof parsed.practiceCatLevelSeen === "object") ? Object.assign({}, parsed.practiceCatLevelSeen) : {},
         lastGreetDate: (typeof parsed.lastGreetDate === "string") ? parsed.lastGreetDate : "",
-        storyRead: (parsed.storyRead && typeof parsed.storyRead === "object") ? JSON.parse(JSON.stringify(parsed.storyRead)) : {},
-        storyUnlockSeen: (parsed.storyUnlockSeen && typeof parsed.storyUnlockSeen === "object") ? Object.assign({}, parsed.storyUnlockSeen) : {},
         birthdayShown: (parsed.birthdayShown && typeof parsed.birthdayShown === "object") ? Object.assign({}, parsed.birthdayShown) : {}
       };
     }
@@ -4048,8 +4035,6 @@
       practiceCreditedMin: 0,
       practiceCatLevelSeen: {},
       lastGreetDate: "",
-      storyRead: {},
-      storyUnlockSeen: {},
       birthdayShown: {}
     };
   }
@@ -4224,7 +4209,6 @@
     if(delta > 0){
       state.totalAffectionEarned = Math.round(((state.totalAffectionEarned||0) + delta) * 100) / 100;
       checkUnlocks();
-      if(typeof checkStoryUnlock === "function") checkStoryUnlock();
     }
   }
 
@@ -6231,146 +6215,6 @@
       inp.addEventListener("keydown", (e)=>{ if(e.key === "Enter"){ e.preventDefault(); doAddCat(); } });
     }
   })();
-  const STORY = {"bright":{"name":"あかね","chapters":[{"title":"部長の油絵","body":"あかねの油絵は、いつも絵の具がこんもり盛り上がっている。近くで見ると、ぐちゃぐちゃなくらい大胆だ。\n\n「あたしの絵、繊細さゼロでしょ?でもさ、勢いだけは誰にも負けないんだよね!」\n\n筆を置く音まで元気なあかねを見ていると、こっちまで描きたくなってくる。イラスト部の炎は、たぶんこの子から燃え広がっている。"},{"title":"空回りの日","body":"その日のあかねは、めずらしく口数が少なかった。部員みんなに『もっと描こう!』と発破をかけすぎて、少し引かれてしまったらしい。\n\n「…部長なんだから、みんなを引っぱらなきゃって思うんだけど。空回りしてるのかな、あたし」\n\nいつも全開の笑顔の裏に、こんな顔もあるんだと初めて知った。"},{"title":"部長だって、こわい","body":"放課後、誰もいない部室で、あかねがぽつりと言った。\n\n「ほんとはさ、自信満々なフリしてるだけなんだ。うまく描けない日は、部長失格じゃないかって、こわくなる」\n\n「…でも、あんたにだけは言えた。なんでだろ、あんたの前だと、素になれるんだよね」\n\n炎みたいな子の、いちばん静かな告白だった。"},{"title":"あんたがいるから","body":"あれから、あかねの引っぱり方が少し変わった。『やれ』じゃなくて、『いっしょにやろう』。\n\n「完璧な部長じゃなくてさ、がんばってる背中を見せる部長でいいんだって、気づいたんだ。あんたのおかげだよ」\n\n部室の空気が、前よりずっとあったかい。あかねの炎は、燃やすんじゃなくて、灯すものになっていた。"},{"title":"炎の絵","body":"あかねが一枚の油絵を見せてくれた。真ん中に燃える火。そのまわりを、たくさんの小さな光が囲んでいる。\n\n「これ、うちの部なんだ。真ん中の火があたしで…まわりの光が、みんな。で、この一番近い光が、あんた」\n\n「あたしの炎はさ、一人で燃えるためじゃなくて、みんなに分けるためにあったんだね。ずっと隣で、いっしょに描いてよ。約束」"},{"title":"二人だけの約束","body":"完成祝いのあと、みんなが帰った部室で、あかねが顔を赤くしてもじもじしていた。\n\n「あのさ…部長と部員、じゃなくてさ。あたしとあんた、っていう、二人だけの特別、ほしいんだ」\n\nそっと差し出された小指に、自分の小指をからめる。あかねは、ぱあっと花が咲くみたいに笑った。「えへへ、指切りげんまん。…あたし、あんたのこと、部でいちばん…ううん、世界でいちばん好きだから。約束、ね」"},{"title":"膝まくらの午後","body":"コンクールで空回りした日、あかねは元気がなかった。ソファに座ると、こてん、と頭をこちらの膝にあずけてくる。\n\n「…ちょっとだけ、こうさせて。あんたの膝、世界一おちつくんだよね」\n\n髪をなでると、あかねはとろんと目を細めた。「…あんたの前でだけは、思いっきり甘えていい?部長、今だけおやすみ。…好きだなあ、この時間。あんたのことも、だけどね」。耳まで真っ赤だった。"},{"title":"ずっと隣で、ずっと好き","body":"あかねが、二人で並んで描いた油絵を見せてくれた。肩を寄せ合う二人が、まぶしい光に包まれている。\n\n「あたしね、決めたの。何年経っても、どんな道でも、あんたの隣で描くって。…毎日、おはようからおやすみまで、あんたといたい」\n\nこつん、とおでこを合わせて、あかねはいたずらっぽく笑った。「世界でいちばん、あんたが好き。もう一生、離してあげないから。覚悟しててよね、あたしの相棒さん♪」"}]},"quiet":{"name":"ゆき","chapters":[{"title":"空ばかり描く子","body":"ゆきのスケッチブックは、ほとんどが空だった。人物は、ほとんど描かない。\n\n「…人は、こっちを見るから。…空は、見てても、なにも言わない。だから、描ける」\n\n眠たげな目が、空を見上げるときだけ、少し開く。この子は、言葉のかわりに空を描いているのかもしれない。"},{"title":"起きていられない","body":"いつも眠そうなゆき。でも理由を知って、少し見方が変わった。\n\n「…夜明け前の空の色が、いちばん好きで。…それを見るために、起きてるの。だから、昼間、ねむい」\n\n「…変、だよね」。ぜんぜん変じゃない。むしろ、その一色のために夜を明かすなんて、いちばん絵描きらしい。"},{"title":"卒業の空","body":"3年生のゆきには、卒業が近づいていた。ある日、部室の窓から見える夕方の空を、じっと描いていた。\n\n「…この部室の空、残しておきたくて。…わたしがいなくなっても、空は、ここにあるから」\n\nいつも短い言葉のゆきが、その日はめずらしく、長く空を見上げていた。"},{"title":"きみの空","body":"ゆきが、空の描き方を教えてくれた。青を何層も重ねる、彼女だけのやり方。\n\n「…コツは、いちどに塗らないこと。…空は、時間をかけて、色が変わるから。…きみの空も、きっといい色になる」\n\n受け継ぐ、という言葉が浮かんだ。ゆきは、自分の夜明けを、そっと分けてくれている。"},{"title":"またここで","body":"ゆきが、小さな一枚をくれた。夜明け前の、青と紫のあいだの空。\n\n「…卒業しても、たまに部室に来る。…主に、ソファで寝るためだけど」。ふっと、めずらしく笑った。\n\n「…同じ空の下にいれば、離れてても、つながってる。…また、ここで会おう。…その時までに、うんと上手くなってて」"},{"title":"夜明けを、きみと","body":"まだ暗いうちに、ゆきに手を引かれて屋上へ。二人ならんで、そっと肩がふれる距離で空を待つ。\n\n「…いちばん好きな時間。…きみにだけ、見せたかったの」\n\n空が桃色に染まると、ゆきはこちらの手を、きゅっと握った。「…あったかい。…この空より、きみの手のほうが、好きかも」。めずらしく、ふにゃっとほほえんだ横顔が、朝焼けに溶けていた。"},{"title":"きみとだけは、いっぱい","body":"いつも言葉少ないゆきが、こちらの肩にこてんと頭をのせて、ぽつぽつ話す。めずらしく、いっぱい。\n\n「…わたし、人と話すの、苦手なのに。…きみとだけは、ずっと話していたいの。ふしぎ」\n\n「…あのね。…すき。…きみのこと」。さらっと言って、それから耳まで真っ赤にして、こちらの袖をきゅっとつかんだ。「…はじめて言った。…もう一回、言ってもいい?」"},{"title":"同じ空の下で、ずっと","body":"卒業の朝。ゆきが、二人で見た空をつめたスケッチブックと、小さなお守りをくれた。\n\n「…離れても、同じ空の下。…だからね、さみしくない。…って、思いたかったけど」\n\nふいに、ぎゅっと抱きついてきた。「…むり。さみしい。…きみが、いちばん大事だもん」。腕の中で、ゆきは小さく笑った。「…卒業しても、わたしはきみの。…ずっと、きみだけの、ゆきだよ」"}]},"tsun":{"name":"るり","chapters":[{"title":"消したデータ","body":"るりが、描きかけの厚塗りをためらいなく消した。周りが『いいじゃん』と言った絵だった。\n\n「は?これのどこがいいのよ。…全然、足りないの。私の中の完成には」\n\n消えたレイヤーの数だけ、この子は自分に厳しいんだと思った。その厳しさが、あの緻密な絵を作っているのだとしても。"},{"title":"褒められるのが怖い","body":"るりは、褒められるとすぐに話をそらす。理由を、ぽつりと明かしてくれた。\n\n「褒められると…次も期待されるでしょ。それに応えられなかったら、って考えると、こわいのよ」\n\n「だから、先に自分で否定しておくの。…めんどくさい性格でしょ。わかってるわよ、そんなこと」"},{"title":"深夜のレイヤー","body":"深夜、まだ部室に残って厚塗りを続けるるりを見つけた。目の下にクマ。でも画面の中は、息をのむほど美しい。\n\n「…見てたの?…べつに、いいけど。…あなたになら」\n\nいつもの毒舌が、その夜は少しやわらかい。誰にも見せない集中を、そっと隣で見せてくれた。"},{"title":"初めて残した絵","body":"『それ、消さないで』。そう言ったら、るりは長いこと画面を睨んでいた。\n\n「…わかったわよ。あなたがそこまで言うなら。…残す」\n\n保存ボタンを押す指が、少しだけ震えていた。自分を許すのは、絵を描くより難しい。それでも、るりは一歩踏み出した。"},{"title":"アタシの色","body":"るりが、自分の厚塗りについて、初めてまっすぐ話してくれた。\n\n「アタシね、言葉で気持ちを伝えるの、下手なの。…だから、色に乗せてるの。何時間もかけて塗るのは、その分、言いたいことがあるから」\n\n「…この絵の色、わかる?…ありがとう、って意味。一回しか言わないから、ちゃんと覚えときなさいよね」"},{"title":"素直になる、練習","body":"るりが、めずらしく自分から近づいてきた。もじもじと、指先をいじりながら。\n\n「あのね…あなたにだけ、素直になる練習、してるの。…わ、笑ったら怒るから」\n\n「…あ、ありがと。いつも。…えっと、それと…あなたといると、たのしい。…すきよ、こういう時間」。言い切った瞬間、るりは両手で顔を覆った。「〜〜っ!言った!言ったからね!責任、とってよね!」"},{"title":"アタシの、たった一人","body":"深夜の部室。るりが液タブから目を離し、まっすぐこちらを見つめた。潤んだ瞳で。\n\n「もう、認める。…アタシ、あなたのこと、好き。誰にも渡したくないくらい、好きなの」\n\nそっと手を重ねると、るりは振りほどかずに、逆にきゅっと握り返してきた。「…あなただけよ。アタシのこんな顔、見ていいのは。…一生、アタシの隣にいなさい。…お願い、だから」。声が、甘く震えていた。"},{"title":"ずっと、そばで、大好き","body":"るりが、絶対に消さなかった一枚を差し出した。二人が手をつなぐ後ろ姿が、あたたかい色で描かれている。\n\n「アタシね、完璧じゃないと消しちゃう人間だったの。…でも、あなたとの毎日だけは、不完全でも、ぜんぶ愛おしいの」\n\nつま先立ちで、ちゅっと頬にキスをして、るりは真っ赤になって早口で言った。「だ、大好きよ!一生よ!…もう、アタシの心、あなたでいっぱいなんだから。責任、とってね。ずっと」"}]},"gentle":{"name":"かんな","chapters":[{"title":"ネームの神様","body":"かんなの周りには、いつも誰かがいる。ネームに詰まった後輩に、コマ割りのコツを関西弁で教えている。\n\n「視線をな、ここからここへ流すんや。ほら、読みやすなったやろ?」\n\n『ネームの神様』なんて呼ばれてるけど、本人はけらけら笑うだけ。世話を焼くのが、心から好きな人だ。"},{"title":"関西弁の理由","body":"かんなの明るさには、理由があった。\n\n「うちが黙ってたら、部室、しーんとするやろ?せやから、うちが喋って、笑わせて、あったかい場所にしとくねん」\n\n姉御肌は、たぶん、優しさの鎧だ。みんなの居場所を守るために、かんなは今日も関西弁で笑っている。"},{"title":"うちの夢","body":"夜の部室で、かんなが秘蔵のネームを見せてくれた。分厚い、一冊分の物語。\n\n「うちな…漫画家になりたいねん。…でも、部の外の世界って、こわいわ。ここみたいに、あったかくないかもしれん」\n\nいつも誰かを支える人の、はじめて聞く弱音だった。"},{"title":"後輩ちゃんへ","body":"卒業が近づいて、かんながぽつりと言った。\n\n「うちがおらんくなっても、この部のあったかさ、続いてほしいねん。…後輩ちゃん、あんたなら、それができる気がするわ」\n\n託されたのは、絵の技術じゃない。この場所の温度そのものだった。"},{"title":"卒業と、続き","body":"卒業の日、かんなが一冊の同人誌をくれた。表紙には、イラスト部のみんな。\n\n「うちの初めての本や。ぜんぶ、ここでの日々がネタやねん。…あんたも、ちゃんと描いてある。ほら、ここ」\n\n「物語はな、最終回でも終わらへん。続きは、あんたが描くんやで。うちは、いつでも読者第一号や。おおきに、後輩ちゃん」"},{"title":"先輩じゃなくて、かんな","body":"二人きりのお茶の時間、かんなが、いつもの関西弁をとろけさせて言った。\n\n「あんたには、『先輩』やなくて、『かんな』でおりたいねん。…甘えても、ええ?」\n\nこてん、と肩に寄りかかって、かんなは目を閉じた。「あんたの隣、世界でいちばん落ち着くわ。…なあ、うちのこと、どう思とる?…うちはな、もう、めろめろやで。あんたに」。耳が、ほんのり赤い。"},{"title":"うちを、甘やかして","body":"進路のことで気を張っていたかんな。そっと頭をなでると、ふにゃっと力が抜けた。\n\n「…あかんわ、うち。あんたに甘やかされたら、もう戻られへん」\n\n「いつもみんなを甘やかす側やのに。…あんたの前でだけは、甘えたい。ぎゅってしてほしい」。おずおずと腕を広げるかんなを抱きしめると、耳元で小さな声がした。「…好きや。大好きや。うちの一番は、あんたやで」"},{"title":"一生、あんたの相棒","body":"卒業式の日。かんなが、二人が寄り添う表紙の同人誌をくれた。タイトルは『きみと、ずっと』。\n\n「うちの物語の主人公、いつのまにかあんたになっとってん。…気づいたら、ずーっとあんたのこと描いとったわ」\n\nぎゅっと手を握って、かんなは涙目で笑った。「先輩後輩は卒業。でも、恋人みたいな相棒は一生や。…離れても、うちの心はあんたのそばに置いていく。大好きやで、うちの宝物」"}]},"honest":{"name":"ひなた","chapters":[{"title":"派手なだけ?","body":"ひなたのコピックイラストは、とにかく色がド派手だ。でも、陰でこう言う人もいる。『派手なだけ』って。\n\n「まあ、よく言われるんすよね〜。あーしの絵、うるさいって」\n\n笑って流しているけど、その言葉が刺さっていないわけがない。ギャルの明るさは、無敵じゃない。"},{"title":"盛るのは、隠すため","body":"ひなたが、めずらしくトーンを落として言った。\n\n「あーし、盛るの得意じゃないですか。絵も、自分も。…でもそれって、たりないとこを隠したいからなんすよ」\n\n「派手にしとけば、中身のなさがバレないかなって。…センパイには、言っちゃいましたけど」"},{"title":"センパイだけには","body":"ある日、ひなたが一枚のラフを見せてくれた。いつもの派手さがない、鉛筆だけの、静かな線。\n\n「これ、あーしの素の絵っす。誰にも見せたことない。…でも、センパイになら、見てほしくて」\n\n派手な鎧を脱いだひなたの線は、驚くほど繊細で、まっすぐだった。"},{"title":"色は、あーしの言葉","body":"「気づいたんすよ」。ひなたが、いつもの笑顔で言った。でも、目は真剣だった。\n\n「あーしの派手な色、隠すためじゃなくて、伝えるためでもいいんだって。楽しい!好き!って、色で叫んでるんす」\n\n「派手なだけ、上等っす。あーしはこの色で生きてく。センパイが、そう思わせてくれました」"},{"title":"推しの隣で","body":"「あーしの推し、センパイなんすよ」。ひなたが照れながら言った。\n\n「推しの隣にいられるように、あーしももっと上手くなりたいんす。派手さも、繊細さも、ぜんぶ武器にして」\n\n「一生推すんで。…って重いっすか?でも本気っす。センパイの隣、あーしの特等席なんで。ずっと、いさせてください」"},{"title":"推しじゃなくて、隣に","body":"いつも『推し推し』と騒ぐひなたが、その日はまっすぐな、真剣な目で言った。\n\n「あーし、気づいたんす。センパイのこと、推しって言葉じゃ、ぜんぜんたりないって」\n\nきゅっと袖をつかんで、ひなたは頬を染めた。「推しは遠くから応援するもん。でもあーしは…センパイの隣にいたいんす。ずっと。…これって、好きって、ことっすよね?あーし、センパイが好きです」"},{"title":"素のあーし、ぜんぶ","body":"ひなたが、盛りもメイクもない、すっぴんの顔で部室に来た。恥ずかしそうに、でも嬉しそうに。\n\n「これが、素のあーしっす。…センパイにだけは、飾らない自分でいたくて」\n\nそっと手をつなぐと、ひなたは泣きそうな顔でぎゅっと握り返した。「センパイの前だけは、盛らなくていいんすね。…らく。…好き。だいすき。あーしの、ぜんぶ、センパイのものにしてください。…なんて、重いっすか?へへ」"},{"title":"一生、センパイの隣で","body":"ひなたが、派手な色の中心で二人が寄り添う絵を見せてくれた。ハートがいっぱい散りばめられている。\n\n「あーしの派手な色、ぜんぶ『センパイ大好き』って叫んでるんす。この色、センパイがくれたんすよ」\n\nぴょんと抱きついて、ひなたは満面の笑みで言った。「推しの隣、じゃなくて、恋人の隣!一生、いさせてください!大人になっても、おばあちゃんになっても、あーしはずっとセンパイにベタ惚れなんで♪」"}]},"ojou":{"name":"すみれ","chapters":[{"title":"墨だけの世界","body":"すみれの絵は、いつも墨一色。鮮やかな色を、彼女は決して使わない。\n\n「…色は、うるさいから。…墨の濃淡だけで、世界は充分に語れるの」\n\n静かな水墨の中には、不思議とたくさんの音が眠っている。この子の白と黒には、理由がある気がした。"},{"title":"詩と余白","body":"すみれは、絵のことを詩みたいに話す。\n\n「…余白はね、なにもない場所じゃないの。…描かないことで、いちばん大事なものを描いてる」\n\n「…きみは、余白の呼吸が、少しずつ分かってきてる」。詩のような言葉で、すみれはこちらの成長を、静かに見ていた。"},{"title":"色を失った日","body":"ある雨の夜、すみれがぽつりと過去を漏らした。\n\n「…昔は、色を使ってたの。…でも、ある時から、描けなくなった。…色は、思い出を連れてくるから」\n\nそれ以上は、語らなかった。墨の黒は、彼女が色を封じた跡なのかもしれない。"},{"title":"きみという色","body":"すみれが、こちらをじっと見て言った。月を見るような目で。\n\n「…最近、また色を使ってみたくなってきたの。…たぶん、きみのせい」\n\n「…きみといると、世界に色が戻ってくる。…封じたはずの色が、そっと、疼くの」"},{"title":"初めての一色","body":"すみれが、一枚の水墨画を見せてくれた。いつもの黒と白。でも、隅に、たったひとつだけ——淡い、桃色の花。\n\n「…何年ぶりかの、色。…この一色を置くのに、すごく勇気がいったの」\n\n「…きみのために、置いてみた。…わたしの世界に、色を連れ戻してくれて、ありがとう。この花は、きみだよ」"},{"title":"二人だけの、恋の色","body":"月の綺麗な夜、すみれが小さな絵皿を見せてくれた。作ったばかりの、名前のない、あたたかな一色。\n\n「…この色、世界にひとつだけ。…きみを想って、混ぜたの」\n\nそっとこちらの頬に指をそえて、すみれはささやいた。「…名前をつけるなら、『恋』かな。…わたしの胸に、きみが灯した色。…ふふ、こんなに甘い気持ち、はじめて。…きみのせいだよ、ぜんぶ」"},{"title":"墨の底の、好き","body":"雨の夜、すみれが、墨の底に沈めていた本当の気持ちを、そっと言葉にした。\n\n「…わたし、もう誰も心に入れないって決めてたの。…でも、きみが来てしまった」\n\nこちらの手をとって、自分の胸に当てて。「…ほら。…こんなに速いの。きみのせい。…すきよ。わたしのぜんぶを、きみに明け渡してしまうくらい。…もう、きみのいない世界には、戻れないの」"},{"title":"きみと、永遠に満ちる","body":"すみれが、色で満ちた一枚を見せてくれた。かつて墨だけだった世界が、やさしい光であふれている。真ん中に、寄り添う二人。\n\n「…見て。わたしの世界、こんなに色づいた。…ぜんぶ、きみがくれた恋の色」\n\n額をそっと合わせて、すみれは幸せそうに微笑んだ。「月は欠けても、また満ちる。…わたしの心は、きみといれば、ずっと満ちたまま。…愛してる。永遠に、わたしの絵の真ん中で、笑っていて」"}]},"imouto":{"name":"こむぎ","chapters":[{"title":"にじむのが好き","body":"こむぎの水彩は、いつも色がふわっとにじんでいる。きっちりした線は、ほとんどない。\n\n「こむぎ、にじむのがすきなんです〜。かっちりしてないほうが、なんだか、あんしんするんです」\n\n失敗も味にしてしまう水彩は、少し臆病なこの子に、いちばん合っているのかもしれない。"},{"title":"じょうずじゃなくても","body":"こむぎが、しょんぼりとスケッチブックを閉じた。\n\n「こむぎの絵、まだまだへたっぴで…。みんな、じょうずだから、はずかしくて」\n\nでも、うつむくこむぎの水のにじみは、誰にも真似できない優しい色をしていた。上手い下手じゃない、と伝えたかった。"},{"title":"はじめての展示","body":"部の展示に、こむぎの絵も飾ることになった。前の日、こむぎは半泣きだった。\n\n「みんなに見られるの、こわいです…。へたって思われたら、どうしよう…」\n\n『こむぎのにじみ、世界一だよ』。そう言ったら、こむぎはぎゅっと手をにぎって、こくんとうなずいた。"},{"title":"こむぎの色","body":"展示のあと、こむぎが目をきらきらさせて走ってきた。\n\n「せんぱい!『やさしい色だね』って、言ってもらえました!こむぎの絵、すきって!」\n\n「こむぎ、じぶんの色、すこし、すきになれました。…せんぱいが、はじめにすきって言ってくれたから、です」"},{"title":"せんぱいみたいに","body":"こむぎが、まっすぐな目で言った。いつものふわふわが、少しだけ、しっかりして見えた。\n\n「こむぎ、きめたんです。せんぱいみたいな絵描きさんに、なる!」\n\n「いっぱい練習して、いつか、せんぱいのとなりで、はずかしくないくらい上手になります。…みててくれますか?ずっと、いっしょに」"},{"title":"せんぱいが、せかいでいちばん","body":"こむぎが、宝物の小箱を見せてくれた。中は、せんぱいと過ごした日の思い出でいっぱい。\n\n「こむぎのたからもの、ぜんぶ、せんぱいとの思い出なんです」\n\nぎゅっと制服のそでを握って、こむぎは顔を真っ赤にした。「あのね。こむぎ、せんぱいが、せかいでいちばん、だーいすきです。お友だちより、家族より、いちばん。…えへへ、言えました。どきどきです」"},{"title":"ぎゅっ、てしたい","body":"ある日、こむぎがそばを離れず、うるうるした目で見上げてきた。\n\n「せんぱい…いつか卒業しちゃうの、考えたら、こわくなっちゃって。はなれたくないです」\n\nそっと頭をなでると、こむぎは思い切って、ぎゅうっと抱きついてきた。「…えいっ。…せんぱいの匂い、すきです。あったかいです。…ずっと、こうしていたいな。…だめ、ですか?」。上目づかいが、あまりに甘い。"},{"title":"おおきくなっても、ずっといっしょ","body":"こむぎが、手をつないだ二人が虹の下に立つ水彩画を見せてくれた。まわりはハートのにじみでいっぱい。\n\n「こむぎ、きめました。おとなになっても、ずーっと、せんぱいといっしょにいます!」\n\n小指をからめて、こむぎは花みたいに笑った。「にじむ水彩みたいに、こむぎとせんぱいの色、まざってひとつになりたいです。…けっこん、みたいですね。えへへ。だいすき、せんぱい。ずーっと、はなさないでね?」"}]},"genius":{"name":"ちひろ","chapters":[{"title":"設定ノートの世界","body":"ちひろの設定ノートは、異様に分厚い。魔法体系、種族、年表——ひとつの世界がまるごと詰まっている。\n\n「フッ…これぞ我が創造せし異界。魔力には七つの属性があってだな…!」\n\n止まらない語りに付き合っていると、その世界が、本当にどこかに実在する気がしてくるから不思議だ。"},{"title":"我という鎧","body":"ちひろの中二病には、理由があるらしい。\n\n「…昔な、我の描く世界、誰にも分かってもらえなくてな。変な子、って言われた」\n\n「だから、我は『中二病』という鎧をまとったのだ。笑われる前に、自分から演じておけば、傷つかぬだろう?」"},{"title":"素のわたし","body":"ある時、ちひろの口調が、ふっと素に戻った。\n\n「…えっと、その。いつも大げさに喋ってて、引いてない…?」\n\n顔を赤くする、ふつうの女の子がそこにいた。「…今の、忘れて!わ、我は偉大なる魔導士であるぞ!」——あわてて鎧を着直す姿が、なんだか愛おしかった。"},{"title":"同志という言葉","body":"ちひろが、こちらを『同志』と呼ぶ理由を教えてくれた。\n\n「汝はな、我の世界を、笑わずに聞いてくれた最初の者だ。…設定ノートを、面白いと言ってくれた」\n\n「だから、汝は『同志』。我にとって、それは…いちばん大切な、称号なのだ」"},{"title":"現実に描く魔法","body":"ちひろが、一枚の絵を見せてくれた。彼女の異界。でもその隅に、見覚えのある部室と、こちらの姿があった。\n\n「我、気づいたのだ。空想を、独りで抱えている必要はないと。…現実に、汝という理解者がいるならば」\n\n「これは、我の世界と、汝のいる現実をつなぐ魔法の絵だ。…フッ、いや。えっと——ありがとう、って意味です。ずっと、我が同志でいてくれ」"},{"title":"鎧の下の、素直な我","body":"二人きりの時、ちひろが、ふっと『中二病』の鎧をといた。素の、はにかんだ女の子の声で。\n\n「…あのね。同志の前でだけは、素のわたしでいたいって、思っちゃうんだ」\n\nもじもじと指を合わせて、ちひろは小さな声で言った。「あなたといると、心臓がへんなの。どきどきして、あったかくて。…これって、魔法?…ううん。たぶん、好きって、気持ち。…えへへ、言っちゃった」"},{"title":"同志を、超えて","body":"設定ノートの最後のページ。飾らない字で、こう書いてあった。『わたしの、大好きな人へ』。\n\n「『同志』じゃ、もう、たりないの。…あなたは、それ以上になっちゃった」\n\nちひろは、こちらの手をきゅっと握って、耳まで赤くした。「すきです。中二病のわたしも、素のわたしも、ぜんぶあなたのものにしたいくらい、すき。…現実って、こんなに甘いんだね。あなたが、教えてくれた」"},{"title":"きみが、我の世界のすべて","body":"ちひろが最新作を見せてくれた。壮大な異界の中心で、二人が手をつなぎ、額を寄せ合っている。\n\n「わたし、ずっと空想に逃げてた。現実がこわくて。…でも今は、あなたのいる現実が、いちばん幸せな物語なの」\n\nつま先立ちで、こつんとおでこを合わせて、ちひろは幸せそうに笑った。「だーいすき。永遠の契約だよ。…ずっと、わたしの世界のとなりで、手をつないでいて。…えへへ、これが、我の最強の魔法。『きみと、しあわせ』の魔法なのだ♪」"}]}};
-  const STORY_THRESHOLDS = [1,3,5,7,10,13,16,20];
-
-  // ---- 個別ストーリー ----
-  function ensureStoryState(){
-    if(!state.storyRead || typeof state.storyRead !== "object") state.storyRead = {};
-    if(!state.storyUnlockSeen || typeof state.storyUnlockSeen !== "object") state.storyUnlockSeen = {};
-  }
-  function storyAffectionOf(ch){
-    return (state.affection && typeof state.affection[ch] === "number") ? state.affection[ch] : 1;
-  }
-  function storyUnlockedCount(ch){
-    const st = STORY[ch];
-    if(!st) return 0;
-    const aff = storyAffectionOf(ch);
-    let n = 0;
-    for(let i=0;i<st.chapters.length;i++){ if(aff >= STORY_THRESHOLDS[i]) n++; }
-    return n;
-  }
-  function isChapterRead(ch, i){
-    ensureStoryState();
-    return !!(state.storyRead[ch] && state.storyRead[ch][i]);
-  }
-  function markChapterRead(ch, i){
-    ensureStoryState();
-    if(!state.storyRead[ch]) state.storyRead[ch] = {};
-    state.storyRead[ch][i] = true;
-    saveState();
-  }
-  function hasUnreadStoryFor(ch){
-    if(!ch || !STORY[ch]) return false;
-    const unlocked = storyUnlockedCount(ch);
-    for(let i=0;i<unlocked;i++){ if(!isChapterRead(ch, i)) return true; }
-    return false;
-  }
-  function updateStoryBadge(){
-    const btn = document.getElementById("tabBtnChara");
-    if(!btn) return;
-    const ch = state.characterType;
-    const has = ch && ch !== "none" && STORY[ch] && hasUnreadStoryFor(ch);
-    btn.classList.toggle("has-new", !!has);
-  }
-  // 好感度が上がって新しい章が解放された時に一度だけ記録
-  function checkStoryUnlock(){
-    ensureStoryState();
-    const ch = state.characterType;
-    if(!ch || ch === "none" || !STORY[ch]) return;
-    const unlocked = storyUnlockedCount(ch);
-    const seen = (typeof state.storyUnlockSeen[ch] === "number") ? state.storyUnlockSeen[ch] : 0;
-    if(unlocked > seen){
-      state.storyUnlockSeen[ch] = unlocked;
-      const st = STORY[ch];
-      const idx = unlocked - 1;
-      if(st.chapters[idx]) addMilestone("📖", st.name + "のストーリー「" + st.chapters[idx].title + "」が読めるように!");
-      saveState();
-    }
-    updateStoryBadge();
-  }
-  // ---- 閲覧モーダル ----
-  const storyOverlay = document.getElementById("storyOverlay");
-  function openStoryChapter(ch, i){
-    const st = STORY[ch];
-    if(!st || !st.chapters[i]) return;
-    const chap = st.chapters[i];
-    const titleEl = document.getElementById("storyTitle");
-    const bodyEl = document.getElementById("storyBody");
-    if(titleEl) titleEl.textContent = st.name + "・第" + (i+1) + "話「" + chap.title + "」";
-    if(bodyEl){
-      bodyEl.innerHTML = "";
-      String(chap.body).split("\n\n").forEach(function(p){
-        const pe = document.createElement("p");
-        pe.className = "story-para";
-        pe.textContent = p;
-        bodyEl.appendChild(pe);
-      });
-      bodyEl.scrollTop = 0;
-    }
-    markChapterRead(ch, i);
-    if(storyOverlay) storyOverlay.classList.add("show");
-    if(typeof renderAffectionInfo === "function") renderAffectionInfo();
-    updateStoryBadge();
-  }
-  (function(){
-    const cl = document.getElementById("storyClose");
-    if(cl) cl.addEventListener("click", function(){ if(storyOverlay) storyOverlay.classList.remove("show"); });
-    if(storyOverlay) storyOverlay.addEventListener("click", function(e){ if(e.target === storyOverlay) storyOverlay.classList.remove("show"); });
-  })();
-  // ---- キャラタブのストーリーカード ----
-  function renderCharaStory(container, charKey){
-    if(!container || !charKey || !STORY[charKey]) return;
-    ensureStoryState();
-    const st = STORY[charKey];
-    const aff = storyAffectionOf(charKey);
-    const card = document.createElement("div");
-    card.className = "story-card card char-" + charKey;
-    const title = document.createElement("div");
-    title.className = "unlock-progress-title";
-    title.textContent = "📖 " + st.name + "のストーリー";
-    card.appendChild(title);
-    const note = document.createElement("div");
-    note.className = "story-note";
-    note.textContent = "仲良くなるほど、" + st.name + "の物語が読めるよ。";
-    card.appendChild(note);
-    st.chapters.forEach(function(chap, i){
-      const need = STORY_THRESHOLDS[i];
-      const unlocked = aff >= need;
-      const row = document.createElement("div");
-      row.className = "story-row" + (unlocked ? "" : " locked");
-      const no = document.createElement("span");
-      no.className = "story-no";
-      no.textContent = "第" + (i+1) + "話";
-      const tl = document.createElement("span");
-      tl.className = "story-rowtitle";
-      if(unlocked){
-        tl.textContent = chap.title;
-        if(!isChapterRead(charKey, i)){
-          const nw = document.createElement("span");
-          nw.className = "story-new";
-          nw.textContent = "NEW";
-          tl.appendChild(nw);
-        }
-      } else {
-        tl.textContent = "？？？";
-      }
-      const meta = document.createElement("span");
-      meta.className = "story-meta";
-      meta.textContent = unlocked ? "読む ▸" : ("🔒 好感度 " + need);
-      row.appendChild(no); row.appendChild(tl); row.appendChild(meta);
-      if(unlocked){ row.addEventListener("click", function(){ openStoryChapter(charKey, i); }); }
-      card.appendChild(row);
-    });
-    let readCount = 0;
-    for(let i=0;i<st.chapters.length;i++){ if(isChapterRead(charKey, i)) readCount++; }
-    const prog = document.createElement("div");
-    prog.className = "story-progress";
-    prog.textContent = "読了 " + readCount + " / " + st.chapters.length + " 話";
-    card.appendChild(prog);
-    container.appendChild(card);
-    updateStoryBadge();
-  }
   function renderOptions(){
     optionList.innerHTML = "";
     const entries = currentProject().entries[currentKey] || [];
@@ -7020,7 +6864,6 @@
     }
     affectionInfoAreaEl.appendChild(card);
     renderGiftCard(affectionInfoAreaEl, ct.key);
-    if(typeof renderCharaStory === "function") renderCharaStory(affectionInfoAreaEl, ct.key);
   }
   // ---- Feature 1: gift card + giving logic ----
   function renderGiftCard(container, charKey){
@@ -9620,7 +9463,6 @@
 
   switchTab(state.activeTab || "schedule");
   if(typeof maybeShowDailyGreeting === "function") maybeShowDailyGreeting();
-  if(typeof updateStoryBadge === "function") updateStoryBadge();
 
   // Brand-new users pick their first club member before anything else.
   if(!state.firstMemberChosen && typeof showFirstMemberOverlay === "function"){
