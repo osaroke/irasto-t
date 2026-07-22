@@ -2807,6 +2807,118 @@
   /* 毎日のあいさつ:吹き出しをふわっと強調 */
   @keyframes bubbleGreet{ 0%{ transform:scale(1); } 30%{ transform:scale(1.05); } 100%{ transform:scale(1); } }
   .line-bubble.bubble-greet{ animation:bubbleGreet 0.9s ease 2; box-shadow:0 0 0 3px rgba(246,168,201,0.55); }
+
+  /* ---- モチベ機能(お題・目標・チャレンジ) ---- */
+  .mv-card{ margin-bottom:12px; }
+  .mv-head{ display:flex; align-items:center; gap:7px; margin-bottom:9px; }
+  .mv-ic{ font-size:18px; }
+  .mv-title{ font-size:15px; font-weight:800; color:#5a4a66; }
+  body.dark-mode .mv-title{ color:#e7e3f0; }
+  .mv-prompt{ font-size:17px; font-weight:800; color:#d6336c; text-align:center; padding:14px 8px; background:#faf0f5; border-radius:14px; line-height:1.5; }
+  body.dark-mode .mv-prompt{ background:#2a2030; color:#f0a9c8; }
+  .mv-reroll{ display:block; margin:10px auto 2px; border:none; background:#f6689b; color:#fff; font-weight:800; font-size:13px; border-radius:20px; padding:8px 20px; cursor:pointer; }
+  .mv-reroll:active{ transform:scale(0.96); }
+  .mv-goal-row{ margin:8px 0 12px; }
+  .mv-goal-top{ display:flex; justify-content:space-between; align-items:baseline; font-size:13px; font-weight:700; color:#5a4a66; margin-bottom:5px; }
+  body.dark-mode .mv-goal-top{ color:#e7e3f0; }
+  .mv-goal-val{ font-size:12px; color:#8a7a99; font-weight:700; }
+  .mv-goal-track{ height:14px; background:#efe4f2; border-radius:8px; overflow:hidden; }
+  body.dark-mode .mv-goal-track{ background:#2f2439; }
+  .mv-goal-fill{ height:100%; background:linear-gradient(90deg,#f6a9c8,#f6689b); border-radius:8px; transition:width 0.4s ease; }
+  .mv-goal-fill.done{ background:linear-gradient(90deg,#ffd76b,#ff9f43); }
+  .mv-chips{ display:flex; flex-wrap:wrap; gap:6px; margin-top:7px; }
+  .mv-chip{ border:1.5px solid #eabfd6; background:#fff; color:#c06089; font-size:12px; font-weight:700; border-radius:14px; padding:5px 11px; cursor:pointer; }
+  .mv-chip.on{ background:#f6689b; border-color:#f6689b; color:#fff; }
+  body.dark-mode .mv-chip{ background:#241c2e; border-color:#4a3a5a; color:#f0a9c8; }
+  body.dark-mode .mv-chip.on{ background:#f6689b; border-color:#f6689b; color:#fff; }
+  .mv-goal-msg{ font-size:12px; font-weight:700; color:#e8590c; margin-top:6px; }
+  .mv-ch-desc{ font-size:15px; font-weight:800; color:#5a4a66; margin-bottom:8px; }
+  body.dark-mode .mv-ch-desc{ color:#e7e3f0; }
+  .mv-ch-reward{ font-size:12px; color:#8a7a99; margin-top:7px; }
+  .mv-ch-done{ font-size:14px; font-weight:800; color:#e8590c; text-align:center; margin-top:8px; }
+  .mv-quest-offer{ font-size:13px; color:#b56a92; font-style:italic; background:#faf0f5; border-radius:12px; padding:9px 12px; margin-bottom:10px; line-height:1.5; }
+  body.dark-mode .mv-quest-offer{ background:#2a2030; color:#f0a9c8; }
+  /* ---- 草カレンダー ---- */
+  .grass-card{ margin-top:14px; }
+  .grass-title{ font-size:16px; font-weight:800; color:#5a4a66; margin:0 0 4px; }
+  body.dark-mode .grass-title{ color:#e7e3f0; }
+  .grass-note{ font-size:12px; color:#8a7a99; margin-bottom:10px; }
+  .grass-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; }
+  .grass-grid{ display:grid; grid-auto-flow:column; grid-template-rows:repeat(7, 12px); gap:3px; width:max-content; }
+  .grass-cell{ width:12px; height:12px; border-radius:3px; background:#efe4f2; }
+  body.dark-mode .grass-cell{ background:#2a2233; }
+  .grass-cell.g1{ background:#f7cfe0; }
+  .grass-cell.g2{ background:#f39dc0; }
+  .grass-cell.g3{ background:#ee6fa1; }
+  .grass-cell.g4{ background:#d6336c; }
+  .grass-legend{ display:flex; align-items:center; gap:4px; justify-content:flex-end; margin-top:9px; font-size:11px; color:#8a7a99; }
+  .grass-legend .gl{ width:12px; height:12px; border-radius:3px; display:inline-block; }
+  .grass-legend .gl0{ background:#efe4f2; } .grass-legend .gl1{ background:#f7cfe0; }
+  .grass-legend .gl2{ background:#f39dc0; } .grass-legend .gl3{ background:#ee6fa1; } .grass-legend .gl4{ background:#d6336c; }
+  body.dark-mode .grass-legend .gl0{ background:#2a2233; }
+
+  /* ---- 総合画力ランク ---- */
+  .artrank-box{ background:linear-gradient(135deg,#fff0f6,#ffe6f0); border-radius:14px; padding:13px 15px; margin-bottom:12px; }
+  body.dark-mode .artrank-box{ background:linear-gradient(135deg,#2a2030,#241c2e); }
+  .artrank-top{ display:flex; align-items:center; gap:9px; margin-bottom:7px; }
+  .artrank-badge{ font-size:12px; font-weight:800; color:#fff; background:linear-gradient(135deg,#f6689b,#e8590c); border-radius:12px; padding:3px 11px; }
+  .artrank-name{ font-size:17px; font-weight:800; color:#d6336c; }
+  body.dark-mode .artrank-name{ color:#f0a9c8; }
+  .artrank-track{ height:12px; background:#efe4f2; border-radius:7px; overflow:hidden; }
+  body.dark-mode .artrank-track{ background:#2f2439; }
+  .artrank-fill{ height:100%; background:linear-gradient(90deg,#f6a9c8,#f6689b); border-radius:7px; transition:width 0.4s ease; }
+  .artrank-foot{ font-size:11px; color:#8a7a99; margin-top:5px; text-align:right; }
+  /* ---- レーダー ---- */
+  .radar-box{ text-align:center; margin-bottom:14px; }
+  .radar-title{ font-size:13px; font-weight:800; color:#5a4a66; margin-bottom:4px; }
+  body.dark-mode .radar-title{ color:#e7e3f0; }
+  .radar-note{ font-size:11px; color:#8a7a99; }
+  /* ---- 展示会カード/モーダル ---- */
+  #exhibitCardBody{ font-size:13px; color:#5a4a66; line-height:1.7; }
+  body.dark-mode #exhibitCardBody{ color:#e7e3f0; }
+  .exh-next{ font-size:15px; font-weight:800; color:#d6336c; margin-bottom:6px; }
+  body.dark-mode .exh-next{ color:#f0a9c8; }
+  .exh-prov{ display:flex; align-items:center; gap:8px; margin:6px 0; }
+  .exh-gchip{ font-size:14px; font-weight:900; color:#fff; border-radius:10px; padding:2px 12px; }
+  .exh-gS{ background:linear-gradient(135deg,#ffd76b,#ff9f43); } .exh-gA{ background:#f6689b; }
+  .exh-gB{ background:#c06089; } .exh-gC{ background:#a89ab5; } .exh-gD{ background:#b8b0c0; }
+  .exh-breakrow{ font-size:12px; color:#8a7a99; margin-top:4px; }
+  .exh-hint{ font-size:12px; color:#e8590c; font-weight:700; margin-top:5px; }
+  .exhibit-modal{ max-width:400px; text-align:center; }
+  .exhibit-grade{ font-size:64px; font-weight:900; line-height:1.1; margin:6px 0 0; background:linear-gradient(135deg,#ffd76b,#f6689b); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .exhibit-gtitle{ font-size:18px; font-weight:800; color:#d6336c; margin-bottom:10px; }
+  body.dark-mode .exhibit-gtitle{ color:#f0a9c8; }
+  .exhibit-breakdown{ font-size:13px; color:#5a4a66; line-height:1.8; background:#faf5fc; border-radius:12px; padding:10px 14px; margin:6px 0; text-align:left; }
+  body.dark-mode .exhibit-breakdown{ background:#241c2e; color:#e7e3f0; }
+  .exhibit-cheer{ font-size:14px; color:#5a4a66; line-height:1.6; margin:8px 4px; }
+  body.dark-mode .exhibit-cheer{ color:#e7e3f0; }
+
+  /* ---- プレゼント発見式 ---- */
+  .gift-btn .gi-disc{ position:absolute; top:3px; right:5px; font-size:10px; font-weight:800; border-radius:8px; padding:1px 5px; color:#fff; letter-spacing:0.3px; }
+  .gi-disc.d-love{ background:#f6689b; }
+  .gi-disc.d-like{ background:#f59f43; }
+  .gi-disc.d-normal{ background:#b0a3bd; }
+  .gi-disc.d-dislike{ background:#8fa0b5; }
+  .gift-btn.disc-love{ border-color:#f6a9c8; }
+  .gift-disc-count{ font-size:12px; color:#a080b0; margin-top:6px; font-weight:700; }
+  body.dark-mode .gift-disc-count{ color:#b399c2; }
+
+  /* ---- プチ演出:紙吹雪 ---- */
+  .confetti-piece{ position:fixed; top:-18px; width:9px; height:14px; border-radius:2px; z-index:99999; pointer-events:none;
+    animation: confettiFall var(--dur,1.3s) cubic-bezier(.22,.6,.4,1) forwards; }
+  @keyframes confettiFall{
+    0%{ transform: translate(0,0) rotate(0deg); opacity:1; }
+    100%{ transform: translate(var(--dx,0), 116vh) rotate(var(--rot,360deg)); opacity:0.85; }
+  }
+  /* ---- 部室の一幕 ---- */
+  .vignette-body{ font-size:13.5px; color:#5a4a66; line-height:1.75; white-space:pre-line; background:#faf5fc; border-radius:12px; padding:11px 13px; }
+  body.dark-mode .vignette-body{ background:#241c2e; color:#e7e3f0; }
+  /* ---- 隠し会話/手紙モーダル ---- */
+  .fun-modal{ max-width:440px; text-align:center; }
+  .fun-tag{ display:inline-block; font-size:12px; font-weight:800; color:#fff; background:linear-gradient(135deg,#f6689b,#b56ad6); border-radius:12px; padding:3px 13px; margin-bottom:8px; }
+  #funTitle{ font-size:18px; margin:2px 0 8px; }
+  .fun-body{ font-size:14.5px; line-height:1.9; color:#5a4a66; text-align:left; white-space:pre-line; background:#faf5fc; border-radius:14px; padding:13px 15px; margin:4px 0 6px; max-height:52vh; overflow-y:auto; }
+  body.dark-mode .fun-body{ background:#241c2e; color:#e7e3f0; }
 </style>
 </head>
 <body>
@@ -2828,6 +2940,30 @@
       <h2 class="today-summary-title">📋 今日のまとめ</h2>
       <div class="today-summary-rows" id="todaySummaryRows"></div>
     </div>
+    <div class="mv-card card" id="vignetteCard">
+      <div class="mv-head"><span class="mv-ic">🎭</span><span class="mv-title">部室の一幕</span></div>
+      <div class="vignette-body" id="vignetteBody"></div>
+    </div>
+    <div class="mv-card card" id="mvPromptCard">
+      <div class="mv-head"><span class="mv-ic">🎲</span><span class="mv-title">今日のお題</span></div>
+      <div class="mv-prompt" id="mvPromptText">-</div>
+      <button type="button" class="mv-reroll" id="mvRerollBtn">🎲 引き直す</button>
+    </div>
+    <div class="mv-card card" id="mvGoalCard">
+      <div class="mv-head"><span class="mv-ic">🎯</span><span class="mv-title">今週・今月の目標</span></div>
+      <div id="mvGoalWeek"></div>
+      <div id="mvGoalMonth"></div>
+    </div>
+    <div class="mv-card card" id="mvChallengeCard">
+      <div class="mv-head"><span class="mv-ic">🗨️</span><span class="mv-title" id="mvChallengeTitle">今週の依頼</span></div>
+      <div class="mv-quest-offer" id="mvQuestOffer"></div>
+      <div id="mvChallengeBody"></div>
+    </div>
+    <div class="mv-card card" id="exhibitCard">
+      <div class="mv-head"><span class="mv-ic">🖼️</span><span class="mv-title">次の展示会</span></div>
+      <div id="exhibitCardBody"></div>
+    </div>
+
     <div class="cal-card">
       <div class="cal-nav">
         <button id="prevMonth" type="button" aria-label="前の月へ">◀</button>
@@ -2966,6 +3102,8 @@
   <div class="practice-card">
     <h2 class="practice-title">🎨 画力レベル</h2>
     <p class="practice-note">練習した大カテゴリごとに画力が上がるよ。時間を積むほどレベルアップ！</p>
+    <div id="artRankBox"></div>
+    <div id="artRadarBox"></div>
     <div id="practiceLevels"></div>
   </div>
   <div class="practice-card">
@@ -2995,6 +3133,12 @@
     <div class="stats-card">
       <h2 class="stats-title">📊 統計</h2>
       <div id="statsBody"></div>
+    </div>
+    <div class="grass-card card">
+      <h2 class="grass-title">🌱 えがいた日カレンダー</h2>
+      <div class="grass-note" id="grassNote">濃いマスほど、その日たくさん描いた日だよ。</div>
+      <div class="grass-scroll"><div class="grass-grid" id="grassGrid"></div></div>
+      <div class="grass-legend"><span>少</span><span class="gl gl0"></span><span class="gl gl1"></span><span class="gl gl2"></span><span class="gl gl3"></span><span class="gl gl4"></span><span>多</span></div>
     </div>
     <div class="album-card">
       <h2 class="album-title">📖 思い出アルバム</h2>
@@ -3215,6 +3359,28 @@
     <div class="story-body" id="storyBody"></div>
     <div class="modal-actions">
       <button class="btn-close" id="storyClose">とじる</button>
+    </div>
+  </div>
+</div>
+<div class="overlay" id="exhibitOverlay">
+  <div class="modal exhibit-modal">
+    <h3 id="exhibitTitle">🖼️ 展示会レポート</h3>
+    <div class="exhibit-grade" id="exhibitGrade">B</div>
+    <div class="exhibit-gtitle" id="exhibitGTitle">出展者</div>
+    <div class="exhibit-breakdown" id="exhibitBreakdown"></div>
+    <div class="exhibit-cheer" id="exhibitCheer"></div>
+    <div class="modal-actions">
+      <button class="btn-complete-yes" id="exhibitClose">とじる</button>
+    </div>
+  </div>
+</div>
+<div class="overlay" id="funOverlay">
+  <div class="modal fun-modal">
+    <div class="fun-tag" id="funTag"></div>
+    <h3 id="funTitle">✨</h3>
+    <div class="fun-body" id="funBody"></div>
+    <div class="modal-actions">
+      <button class="btn-complete-yes" id="funClose">とじる</button>
     </div>
   </div>
 </div>
@@ -3945,6 +4111,16 @@
         lastGreetDate: (typeof parsed.lastGreetDate === "string") ? parsed.lastGreetDate : "",
         storyRead: (parsed.storyRead && typeof parsed.storyRead === "object") ? JSON.parse(JSON.stringify(parsed.storyRead)) : {},
         storyUnlockSeen: (parsed.storyUnlockSeen && typeof parsed.storyUnlockSeen === "object") ? Object.assign({}, parsed.storyUnlockSeen) : {},
+        dailyPrompt: (parsed.dailyPrompt && typeof parsed.dailyPrompt === "object") ? Object.assign({date:"",idx:0}, parsed.dailyPrompt) : {date:"",idx:0},
+        goals: (parsed.goals && typeof parsed.goals === "object") ? Object.assign({weekMin:0,monthMin:0}, parsed.goals) : {weekMin:0,monthMin:0},
+        goalHit: (parsed.goalHit && typeof parsed.goalHit === "object") ? Object.assign({week:"",month:""}, parsed.goalHit) : {week:"",month:""},
+        challengeDone: (parsed.challengeDone && typeof parsed.challengeDone === "object") ? Object.assign({}, parsed.challengeDone) : {},
+        exhibitReportedDate: (typeof parsed.exhibitReportedDate === "string") ? parsed.exhibitReportedDate : "",
+        artRankSeen: (typeof parsed.artRankSeen === "number") ? parsed.artRankSeen : 0,
+        giftDiscovered: (parsed.giftDiscovered && typeof parsed.giftDiscovered === "object") ? JSON.parse(JSON.stringify(parsed.giftDiscovered)) : {},
+        secretsSeen: (parsed.secretsSeen && typeof parsed.secretsSeen === "object") ? Object.assign({}, parsed.secretsSeen) : {},
+        lettersSeen: (parsed.lettersSeen && typeof parsed.lettersSeen === "object") ? Object.assign({}, parsed.lettersSeen) : {},
+        vignette: (parsed.vignette && typeof parsed.vignette === "object") ? Object.assign({date:"",type:"",key:"",idx:0}, parsed.vignette) : {date:"",type:"",key:"",idx:0},
         birthdayShown: (parsed.birthdayShown && typeof parsed.birthdayShown === "object") ? Object.assign({}, parsed.birthdayShown) : {}
       };
     }
@@ -3993,6 +4169,16 @@
         lastGreetDate: (typeof parsed.lastGreetDate === "string") ? parsed.lastGreetDate : "",
         storyRead: (parsed.storyRead && typeof parsed.storyRead === "object") ? JSON.parse(JSON.stringify(parsed.storyRead)) : {},
         storyUnlockSeen: (parsed.storyUnlockSeen && typeof parsed.storyUnlockSeen === "object") ? Object.assign({}, parsed.storyUnlockSeen) : {},
+        dailyPrompt: (parsed.dailyPrompt && typeof parsed.dailyPrompt === "object") ? Object.assign({date:"",idx:0}, parsed.dailyPrompt) : {date:"",idx:0},
+        goals: (parsed.goals && typeof parsed.goals === "object") ? Object.assign({weekMin:0,monthMin:0}, parsed.goals) : {weekMin:0,monthMin:0},
+        goalHit: (parsed.goalHit && typeof parsed.goalHit === "object") ? Object.assign({week:"",month:""}, parsed.goalHit) : {week:"",month:""},
+        challengeDone: (parsed.challengeDone && typeof parsed.challengeDone === "object") ? Object.assign({}, parsed.challengeDone) : {},
+        exhibitReportedDate: (typeof parsed.exhibitReportedDate === "string") ? parsed.exhibitReportedDate : "",
+        artRankSeen: (typeof parsed.artRankSeen === "number") ? parsed.artRankSeen : 0,
+        giftDiscovered: (parsed.giftDiscovered && typeof parsed.giftDiscovered === "object") ? JSON.parse(JSON.stringify(parsed.giftDiscovered)) : {},
+        secretsSeen: (parsed.secretsSeen && typeof parsed.secretsSeen === "object") ? Object.assign({}, parsed.secretsSeen) : {},
+        lettersSeen: (parsed.lettersSeen && typeof parsed.lettersSeen === "object") ? Object.assign({}, parsed.lettersSeen) : {},
+        vignette: (parsed.vignette && typeof parsed.vignette === "object") ? Object.assign({date:"",type:"",key:"",idx:0}, parsed.vignette) : {date:"",type:"",key:"",idx:0},
         birthdayShown: (parsed.birthdayShown && typeof parsed.birthdayShown === "object") ? Object.assign({}, parsed.birthdayShown) : {}
       };
     }
@@ -4050,6 +4236,16 @@
       lastGreetDate: "",
       storyRead: {},
       storyUnlockSeen: {},
+      dailyPrompt: {date:"",idx:0},
+      goals: {weekMin:0,monthMin:0},
+      goalHit: {week:"",month:""},
+      challengeDone: {},
+      exhibitReportedDate: "",
+      artRankSeen: 0,
+      giftDiscovered: {},
+      secretsSeen: {},
+      lettersSeen: {},
+      vignette: {date:"",type:"",key:"",idx:0},
       birthdayShown: {}
     };
   }
@@ -4225,6 +4421,8 @@
       state.totalAffectionEarned = Math.round(((state.totalAffectionEarned||0) + delta) * 100) / 100;
       checkUnlocks();
       if(typeof checkStoryUnlock === "function") checkStoryUnlock();
+      if(typeof checkCharLetters === "function") checkCharLetters(ch);
+      if(typeof checkSecretEvents === "function") checkSecretEvents();
     }
   }
 
@@ -5557,6 +5755,7 @@
     saveState();
     updateTimeRowUI();
     checkTimeMilestones();
+    if(typeof motivationOnTimeLogged === "function") motivationOnTimeLogged();
     try{
       const cp = computeProgress();
       progressNote.textContent = `進捗率（工程チェック完了）：${cp.pct}% ・ 予定：${cp.totalEntries}件 ・ この作品の制作時間：${formatMinutes(projTimeTotal(currentProject()))}`;
@@ -5643,11 +5842,13 @@
     const affBlocks = Math.floor(after / 30) - Math.floor(before / 30);
     let affGained = false;
     if(affBlocks > 0 && state.characterType && state.characterType !== "none"){
-      adjustAffectionRaw(affBlocks * 0.5);
+      adjustAffectionRaw(affBlocks * 0.25);
       if(typeof addMemberExp === "function") addMemberExp(state.characterType, affBlocks * 2);
       affGained = true;
     }
     if(typeof renderAffectionMeter === "function") renderAffectionMeter();
+    if(typeof motivationOnTimeLogged === "function") motivationOnTimeLogged();
+    if(typeof checkArtRankUp === "function") checkArtRankUp();
     // 画力レベルアップ判定(練習した大カテゴリ)
     let leveledTo = 0, catNm = "";
     if(catKey){
@@ -5671,6 +5872,7 @@
       if(leveledTo % 5 === 0 && PRACTICE_LEVELUP_MILE[key]) line = pdPick(PRACTICE_LEVELUP_MILE[key]);
       if(!line) line = pdPick(PRACTICE_LEVELUP_LINES[key] || PRACTICE_LEVELUP_LINES.bright);
       if(!line) line = "腕、上がってきてるよ!";
+      if(typeof celebrateBurst === "function") celebrateBurst("level");
       showAlertModal("🎨 画力アップ! 「" + catNm + "」Lv." + leveledTo, (ch ? ch.name + "「" + line + "」" : line));
     }
   }
@@ -6078,6 +6280,8 @@
     });
     // 画力レベル・カテゴリ管理は記録の有無にかかわらず常に描画
     renderPracticeLevels();
+    if(typeof renderArtRank === "function") renderArtRank();
+    if(typeof renderArtRadar === "function") renderArtRadar();
     renderPracticeCatManager();
     // 集計とグラフ
     const {agg, total} = practiceAgg();
@@ -6370,6 +6574,685 @@
     card.appendChild(prog);
     container.appendChild(card);
     updateStoryBadge();
+  }
+
+  // ==== モチベ機能:お題 / 目標 / チャレンジ / 草カレンダー ====
+  const DRAW_PROMPTS = ["笑っている女の子","空を見上げるポーズ","後ろ姿","横顔のアップ","手のクローズアップ","好きな食べ物を持ったキャラ","風になびく髪","走っている瞬間","座ってくつろぐ姿","振り向きざまの表情","泣きそうな顔","怒った表情","びっくり顔","眠っているところ","あくびをする猫","雨の日の傘","制服の女の子","和服・着物姿","エプロン姿","私服コーデ","ふたりで並んで歩く","手をつなぐ二人","背中合わせのペア","見つめ合う二人","ハイタッチの瞬間","空を飛ぶ鳥","水たまりの反射","夕焼けのシルエット","夜空と星","朝焼けの街","小物(アクセサリー)の練習","靴のデッサン","コップと飲み物","本を読む手元","スマホを持つ手","デフォルメ(ちびキャラ)","リアル寄りの目","笑顔のいろいろ(5パターン)","口の形の描き分け","耳の描き込み","動物の擬人化","季節の花を一輪","空想の生き物","ロボット・メカ","ファンタジー衣装","食べ物の湯気","透明なガラス","金属の質感","布のしわ","水の表現","逆光のポートレート","俯瞰(上から)の構図","あおり(下から)の構図","手前と奥のある構図","動きのあるアクションポーズ"];
+  const CHALLENGE_TEMPLATES = [{"id":"days3","icon":"🗓","desc":"今週、3日えがこう","target":3,"measure":"mvActiveDaysThisWeek","unit":"日"},{"id":"min180","icon":"⏱","desc":"今週、合計3時間えがこう","target":180,"measure":"mvWeekMinutes","unit":"分"},{"id":"prac120","icon":"✏️","desc":"今週、練習を2時間しよう","target":120,"measure":"mvPracticeMinThisWeek","unit":"分"},{"id":"days5","icon":"🔥","desc":"今週、5日えがこう","target":5,"measure":"mvActiveDaysThisWeek","unit":"日"},{"id":"min300","icon":"🎨","desc":"今週、合計5時間えがこう","target":300,"measure":"mvWeekMinutes","unit":"分"}];
+  const CHALLENGE_CHEER = {"bright":"やった!今週のチャレンジ達成だよ!あんた最高!","quiet":"…達成、だね。…えらい。…ちょっと、感動してる。","tsun":"ふ、ふん!今週のノルマ達成じゃない。…や、やるわね、あなた。","gentle":"ようやった後輩ちゃん!今週のチャレンジ、ばっちりや!","honest":"チャレンジ達成っす!!さすがセンパイ、尊すぎ!!","ojou":"…見事。今週の約束、果たしたのね。…誇らしい。","imouto":"せんぱいすごいです〜!チャレンジできました!えへへ!","genius":"フッ…今週の試練、見事クリアだ、我が同志よ!"};
+  const QUEST_OFFER = {"bright":"よーし、今週の目標、あたしと一緒に決めちゃお!これクリアできる?","quiet":"…今週、いっしょに、これ、やってみない?…きみとなら、できる。","tsun":"べ、別にあなたのためじゃないけど…今週の課題、出してあげる。やりなさいよね。","gentle":"後輩ちゃん、今週はこれ、うちと約束せえへん?ゆるっといこな!","honest":"センパイ!今週のあーしとの約束、これでどうっすか!一緒にやりましょ!","ojou":"…今週、きみと交わしたい約束が、ひとつ。…受けてくれる?","imouto":"せんぱい!こむぎと、今週これ、がんばりましょ〜!やくそくです!","genius":"同志よ…今週、汝に授ける試練はこれだ!共に乗り越えようぞ!"};
+  const GOAL_CHEER = {"bright":"今週の目標達成〜!あんたのがんばり、あたし見てたよ!","quiet":"…目標、届いた。…すごい。…ぎゅってしたい気分。","tsun":"目標達成?…ま、まあ、褒めてあげてもいいわよ。えらい。","gentle":"目標クリアやん!さすがうちの後輩ちゃんやわ〜!","honest":"目標達成っすね!!センパイのストイックさ、まじ推せる!","ojou":"…掲げた目標に、きみは届いた。…美しい積み重ねね。","imouto":"もくひょう、たっせいです〜!せんぱい、かっこいい!","genius":"掲げし目標、成就せり…!汝の意志、本物であったな!"};
+  const GOAL_WEEK_PRESETS = [{min:0,label:"なし"},{min:60,label:"1時間"},{min:180,label:"3時間"},{min:300,label:"5時間"},{min:600,label:"10時間"}];
+  const GOAL_MONTH_PRESETS = [{min:0,label:"なし"},{min:300,label:"5時間"},{min:600,label:"10時間"},{min:1200,label:"20時間"},{min:2400,label:"40時間"}];
+
+  function ensureMotivState(){
+    if(!state.dailyPrompt || typeof state.dailyPrompt !== "object") state.dailyPrompt = { date:"", idx:0 };
+    if(!state.goals || typeof state.goals !== "object") state.goals = { weekMin:0, monthMin:0 };
+    if(typeof state.goals.weekMin !== "number") state.goals.weekMin = 0;
+    if(typeof state.goals.monthMin !== "number") state.goals.monthMin = 0;
+    if(!state.goalHit || typeof state.goalHit !== "object") state.goalHit = { week:"", month:"" };
+    if(!state.challengeDone || typeof state.challengeDone !== "object") state.challengeDone = {};
+  }
+
+  // --- 期間ヘルパ ---
+  function mvWeekDates(){
+    const mon = weekMonday(new Date());
+    const out = [];
+    for(let i=0;i<7;i++){ const d = new Date(mon.getFullYear(), mon.getMonth(), mon.getDate()+i); out.push(localDateToStr(d)); }
+    return out;
+  }
+  function mvWeekMinutes(){
+    const map = combinedTimeByDay();
+    return mvWeekDates().reduce(function(s,d){ return s + (map[d]||0); }, 0);
+  }
+  function mvMonthMinutes(){
+    const map = combinedTimeByDay();
+    const pref = getTodayStr().slice(0,7);
+    let s = 0;
+    Object.keys(map).forEach(function(d){ if(d.slice(0,7) === pref) s += map[d]; });
+    return s;
+  }
+  function mvActiveDaysThisWeek(){
+    const map = combinedTimeByDay();
+    return mvWeekDates().reduce(function(n,d){ return n + ((map[d]||0) > 0 ? 1 : 0); }, 0);
+  }
+  function mvPracticeMinThisWeek(){
+    ensurePracticeState();
+    const week = mvWeekDates();
+    let s = 0;
+    week.forEach(function(d){ (state.practiceLog[d]||[]).forEach(function(e){ if(e && typeof e.minutes === "number") s += e.minutes; }); });
+    return s;
+  }
+
+  // --- お題 ---
+  function mvRollPrompt(force){
+    ensureMotivState();
+    const today = getTodayStr();
+    if(!force && state.dailyPrompt.date === today){ return DRAW_PROMPTS[state.dailyPrompt.idx] || DRAW_PROMPTS[0]; }
+    let idx = Math.floor(Math.random() * DRAW_PROMPTS.length);
+    if(DRAW_PROMPTS.length > 1 && idx === state.dailyPrompt.idx){ idx = (idx + 1) % DRAW_PROMPTS.length; }
+    state.dailyPrompt = { date: today, idx: idx };
+    saveState();
+    return DRAW_PROMPTS[idx];
+  }
+  function renderPromptCard(){
+    const el = document.getElementById("mvPromptText");
+    if(el) el.textContent = mvRollPrompt(false);
+  }
+
+  // --- 目標 ---
+  function mvGoalRow(container, label, cur, goalMin, presets, onPick){
+    if(!container) return;
+    container.innerHTML = "";
+    const row = document.createElement("div"); row.className = "mv-goal-row";
+    const top = document.createElement("div"); top.className = "mv-goal-top";
+    const lab = document.createElement("span"); lab.textContent = label;
+    const val = document.createElement("span"); val.className = "mv-goal-val";
+    top.appendChild(lab); top.appendChild(val);
+    row.appendChild(top);
+    const track = document.createElement("div"); track.className = "mv-goal-track";
+    const fill = document.createElement("div"); fill.className = "mv-goal-fill";
+    track.appendChild(fill); row.appendChild(track);
+    if(goalMin > 0){
+      const pct = Math.max(0, Math.min(100, Math.round(cur / goalMin * 100)));
+      fill.style.width = pct + "%";
+      if(cur >= goalMin){ fill.classList.add("done"); val.textContent = "達成! " + formatMinutes(cur); }
+      else { val.textContent = formatMinutes(cur) + " / " + formatMinutes(goalMin); }
+      if(goalMin > 0 && cur < goalMin){
+        const msg = document.createElement("div"); msg.className = "mv-goal-msg";
+        msg.textContent = "あと " + formatMinutes(goalMin - cur) + "!";
+        row.appendChild(msg);
+      } else if(cur >= goalMin){
+        const msg = document.createElement("div"); msg.className = "mv-goal-msg";
+        msg.textContent = "目標クリア!🎉";
+        row.appendChild(msg);
+      }
+    } else {
+      fill.style.width = "0%";
+      val.textContent = "目標を選んでね";
+    }
+    const chips = document.createElement("div"); chips.className = "mv-chips";
+    presets.forEach(function(p){
+      const c = document.createElement("button"); c.type = "button";
+      c.className = "mv-chip" + (p.min === goalMin ? " on" : "");
+      c.textContent = p.label;
+      c.addEventListener("click", function(){ onPick(p.min); });
+      chips.appendChild(c);
+    });
+    row.appendChild(chips);
+    container.appendChild(row);
+  }
+  function renderGoalCard(){
+    ensureMotivState();
+    mvGoalRow(document.getElementById("mvGoalWeek"), "今週えがいた時間", mvWeekMinutes(), state.goals.weekMin, GOAL_WEEK_PRESETS,
+      function(min){ state.goals.weekMin = min; saveState(); renderGoalCard(); });
+    mvGoalRow(document.getElementById("mvGoalMonth"), "今月えがいた時間", mvMonthMinutes(), state.goals.monthMin, GOAL_MONTH_PRESETS,
+      function(min){ state.goals.monthMin = min; saveState(); renderGoalCard(); });
+  }
+  function checkGoalAchieved(){
+    ensureMotivState();
+    const wk = currentWeekKey();
+    const mo = getTodayStr().slice(0,7);
+    let fired = false;
+    if(state.goals.weekMin > 0 && mvWeekMinutes() >= state.goals.weekMin && state.goalHit.week !== wk){
+      state.goalHit.week = wk;
+      addMilestone("🎯", "今週の目標(" + formatMinutes(state.goals.weekMin) + ")を達成!");
+      fired = true;
+    }
+    if(state.goals.monthMin > 0 && mvMonthMinutes() >= state.goals.monthMin && state.goalHit.month !== mo){
+      state.goalHit.month = mo;
+      addMilestone("🎯", "今月の目標(" + formatMinutes(state.goals.monthMin) + ")を達成!");
+      fired = true;
+    }
+    if(fired){
+      saveState();
+      const ch = CHAR_BY_KEY[state.characterType];
+      if(ch && bubble){ const line = GOAL_CHEER[ch.key] || GOAL_CHEER.bright; if(line) bubble.textContent = line; }
+    }
+  }
+
+  // --- 週替わりの「キャラ依頼(クエスト)」 ---
+  function mvCatMinThisWeek(catKey){
+    ensurePracticeState();
+    let s = 0;
+    mvWeekDates().forEach(function(d){ (state.practiceLog[d]||[]).forEach(function(e){ if(e && e.cat === catKey && typeof e.minutes === "number") s += e.minutes; }); });
+    return s;
+  }
+  // その週の依頼内容を決める(週固定)。時々カテゴリ指定クエストになる。
+  function mvCurrentChallenge(){
+    ensurePracticeState();
+    const key = currentWeekKey();
+    let h = 0; for(let i=0;i<key.length;i++){ h = (h * 31 + key.charCodeAt(i)) % 1000000; }
+    const cats = state.practiceCats || [];
+    if(cats.length && (h % 3 === 0)){
+      const cat = cats[h % cats.length];
+      return { id: "cat_" + cat.key, icon: "🎯", desc: "『" + cat.name + "』を60分 練習しよう", target: 60, unit: "分", measure: "cat", catKey: cat.key };
+    }
+    const t = CHALLENGE_TEMPLATES[h % CHALLENGE_TEMPLATES.length];
+    return Object.assign({ catKey: null }, t);
+  }
+  function mvChallengeValue(t){
+    if(t.measure === "cat") return mvCatMinThisWeek(t.catKey);
+    const fn = { mvActiveDaysThisWeek: mvActiveDaysThisWeek, mvWeekMinutes: mvWeekMinutes, mvPracticeMinThisWeek: mvPracticeMinThisWeek }[t.measure];
+    return fn ? fn() : 0;
+  }
+  function mvChallengeLabel(t, v){
+    if(t.unit === "分") return formatMinutes(v) + " / " + formatMinutes(t.target);
+    return v + " / " + t.target + t.unit;
+  }
+  function renderChallengeCard(){
+    ensureMotivState();
+    const body = document.getElementById("mvChallengeBody");
+    if(!body) return;
+    const ch = CHAR_BY_KEY[state.characterType];
+    // タイトル & 依頼セリフ(パートナーがいれば「◯◯からの依頼」)
+    const titleEl = document.getElementById("mvChallengeTitle");
+    const offerEl = document.getElementById("mvQuestOffer");
+    if(titleEl) titleEl.textContent = ch ? (ch.name + "からの依頼") : "今週の依頼";
+    if(offerEl){
+      if(ch){ offerEl.style.display = ""; offerEl.textContent = "「" + (QUEST_OFFER[ch.key] || QUEST_OFFER.bright) + "」"; }
+      else { offerEl.style.display = "none"; offerEl.textContent = ""; }
+    }
+    body.innerHTML = "";
+    const t = mvCurrentChallenge();
+    const wk = currentWeekKey();
+    const done = !!state.challengeDone[wk];
+    const v = mvChallengeValue(t);
+    const desc = document.createElement("div"); desc.className = "mv-ch-desc";
+    desc.textContent = (t.icon || "🏅") + " " + t.desc;
+    body.appendChild(desc);
+    const track = document.createElement("div"); track.className = "mv-goal-track";
+    const fill = document.createElement("div"); fill.className = "mv-goal-fill" + (done || v >= t.target ? " done" : "");
+    const pct = Math.max(0, Math.min(100, Math.round(v / t.target * 100)));
+    fill.style.width = pct + "%";
+    track.appendChild(fill); body.appendChild(track);
+    const top = document.createElement("div"); top.className = "mv-goal-top"; top.style.marginTop = "5px";
+    top.appendChild(document.createElement("span"));
+    const val = document.createElement("span"); val.className = "mv-goal-val"; val.textContent = mvChallengeLabel(t, Math.min(v, t.target));
+    top.appendChild(val); body.appendChild(top);
+    if(done){
+      const d = document.createElement("div"); d.className = "mv-ch-done"; d.textContent = "🎉 依頼たっせい!よくがんばったね!";
+      body.appendChild(d);
+    } else {
+      const r = document.createElement("div"); r.className = "mv-ch-reward"; r.textContent = "達成すると 🎁ポイント+10 & 💗" + (ch ? ch.name + "の" : "") + "好感度アップ";
+      body.appendChild(r);
+    }
+  }
+  function checkChallengeDone(){
+    ensureMotivState();
+    const t = mvCurrentChallenge();
+    const wk = currentWeekKey();
+    if(state.challengeDone[wk]) return;
+    if(mvChallengeValue(t) >= t.target){
+      state.challengeDone[wk] = true;
+      if(typeof addGiftPoints === "function") addGiftPoints(10);
+      const ch0 = CHAR_BY_KEY[state.characterType];
+      addMilestone("🏅", (ch0 ? ch0.name + "の" : "") + "依頼「" + t.desc + "」を達成! 🎁+10");
+      if(state.characterType && state.characterType !== "none" && typeof adjustAffectionRaw === "function"){
+        adjustAffectionRaw(1);
+      }
+      saveState();
+      const ch = CHAR_BY_KEY[state.characterType];
+      if(ch && bubble){ const line = CHALLENGE_CHEER[ch.key] || CHALLENGE_CHEER.bright; if(line) bubble.textContent = line; }
+      if(typeof celebrateBurst === "function") celebrateBurst("quest");
+    }
+  }
+
+  // --- 草カレンダー(直近約1年) ---
+  function renderGrassCal(){
+    const grid = document.getElementById("grassGrid");
+    if(!grid) return;
+    grid.innerHTML = "";
+    const map = combinedTimeByDay();
+    // 今日を含む週の日曜終わりまで。26週(約半年)ぶんを表示。
+    const today = new Date();
+    const end = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    // grid は縦7(日〜土)。開始を過去の日曜に合わせる。
+    const WEEKS = 27;
+    const start = new Date(end.getFullYear(), end.getMonth(), end.getDate() - (WEEKS*7 - 1));
+    // startを直前の日曜へ
+    start.setDate(start.getDate() - start.getDay());
+    let active = 0;
+    const cur = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+    const endTime = end.getTime();
+    while(cur.getTime() <= endTime){
+      for(let dow=0; dow<7; dow++){
+        const ds = localDateToStr(cur);
+        const cell = document.createElement("div");
+        const future = cur.getTime() > endTime;
+        const min = future ? -1 : (map[ds] || 0);
+        let lv = 0;
+        if(min > 0) active++;
+        if(min >= 180) lv = 4; else if(min >= 90) lv = 3; else if(min >= 45) lv = 2; else if(min > 0) lv = 1;
+        cell.className = "grass-cell" + (lv ? " g" + lv : "");
+        if(future) cell.style.visibility = "hidden";
+        cell.title = future ? "" : (ds + " ・ " + (min > 0 ? formatMinutes(min) : "おやすみ"));
+        grid.appendChild(cell);
+        cur.setDate(cur.getDate() + 1);
+        if(cur.getTime() > endTime && dow < 6){
+          // 残りの列を空セルで埋める
+          for(let k=dow+1;k<7;k++){ const e = document.createElement("div"); e.className="grass-cell"; e.style.visibility="hidden"; grid.appendChild(e); }
+          break;
+        }
+      }
+    }
+    const note = document.getElementById("grassNote");
+    if(note) note.textContent = "この半年で " + active + " 日えがいたよ。濃いマスほどたくさん描いた日!";
+  }
+
+  // --- まとめ描画 & フック ---
+  function renderMotivation(){
+    ensureMotivState();
+    renderPromptCard();
+    renderGoalCard();
+    renderChallengeCard();
+  }
+  function motivationOnTimeLogged(){
+    checkGoalAchieved();
+    checkChallengeDone();
+    if(document.getElementById("mvGoalCard")) renderMotivation();
+  }
+  (function(){
+    const rb = document.getElementById("mvRerollBtn");
+    if(rb) rb.addEventListener("click", function(){ const el = document.getElementById("mvPromptText"); if(el) el.textContent = mvRollPrompt(true); });
+  })();
+
+  // ==== 総合画力ランク & レーダー / 展示会の出展評価 ====
+  const ART_RANKS = [{"min":0,"name":"かけだし"},{"min":300,"name":"みならい絵描き"},{"min":900,"name":"絵描き"},{"min":1800,"name":"絵師見習い"},{"min":3600,"name":"絵師"},{"min":6000,"name":"熟練絵師"},{"min":12000,"name":"匠"},{"min":24000,"name":"巨匠"},{"min":48000,"name":"絵の伝道師"}];
+  const EXHIBIT_GRADES = [{"min":100,"g":"S","title":"今会期の主役","pts":15},{"min":70,"g":"A","title":"常連作家","pts":10},{"min":45,"g":"B","title":"出展者","pts":6},{"min":20,"g":"C","title":"かけだし出展","pts":3},{"min":0,"g":"D","title":"次に期待","pts":1}];
+  const EXHIBIT_LINES = {"S":{"bright":"会場の主役はあんただよ!ほんとにすごい会期だった!","quiet":"…今会期の主役は、きみ。…静かに、誇らしい。","tsun":"し、主役じゃない、あなた。…ま、認めてあげる。すごかったわよ。","gentle":"今会期の主役はあんたや!よう描き込んだなあ、感動やで!","honest":"主役センパイ!!今会期、完全にセンパイの独壇場でした!!","ojou":"…今会期、きみの光が会場を満たしていた。…見事。","imouto":"せんぱいが主役です〜!こむぎ、じぶんのことみたいにうれしいです!","genius":"今会期の覇者は汝である!その研鑽、まさに伝説級!"},"A":{"bright":"常連作家の風格だね!この調子、めっちゃいいよ!","quiet":"…しっかり描いてた。…いい会期だったね。","tsun":"ちゃんと積み上げたわね。…この調子なら、次はS狙えるわよ。","gentle":"ようけ描いたなあ!すっかり常連作家やん!","honest":"常連作家センパイ!安定感やばいっす、さすがっす!","ojou":"…着実な会期。…きみの積み重ね、美しい。","imouto":"たくさん描きましたね〜!こむぎ、そんけいです!","genius":"見事な鍛錬であった!常連の域、確かに掴んだな!"},"B":{"bright":"しっかり出展できたね!次はもっといけるよ、一緒に!","quiet":"…出展、できた。…えらい。…次も、いっしょに。","tsun":"まあ、出展はできたわね。…次はもっと欲張っていいのよ?","gentle":"ちゃんと出展できたな!次はもう一歩、いってみよか!","honest":"出展できました!次はもっと盛りましょ、センパイ!","ojou":"…出展という一歩。…次は、もっと遠くへ。","imouto":"しゅってんできました〜!つぎもいっしょにがんばりましょ!","genius":"出展、大義であった!次なる会期、さらなる高みへ!"},"C":{"bright":"ちょっとペース控えめだったかな?次は一緒に巻き返そ!","quiet":"…今回は、少なめ。…でも、大丈夫。…また描こ。","tsun":"…今回はちょっと少なかったわね。次、期待してるんだから。","gentle":"今回はゆっくりやったな。ま、休むのも大事や。次いこ!","honest":"今回はスローペースでしたね!次はリベンジっすよ!","ojou":"…静かな会期だった。…次は、もう少し、きみらしく。","imouto":"つぎは、もっといっしょに描けたらうれしいです〜!","genius":"今会期は雌伏の時であったか。次なる飛躍に備えよ!"},"D":{"bright":"今回はお休みモードだったね。焦らず、また描こ!","quiet":"…描けない時も、ある。…また、ゆっくり。","tsun":"…全然描いてないじゃない。ま、いいわ。次からよ、次から。","gentle":"今回は充電期間やったな。無理せんと、またぼちぼちいこ!","honest":"今回はおやすみ回っすね!大丈夫、次があるんで!","ojou":"…筆を置く時間も、絵の一部。…また、いつでも。","imouto":"また、いっしょに描いてくれたら、こむぎうれしいです!","genius":"英気を養う刻もまた必要。次なる召集を待つとしよう!"}};
+
+  function ensureGameState(){
+    if(typeof state.exhibitReportedDate !== "string") state.exhibitReportedDate = "";
+    if(typeof state.artRankSeen !== "number") state.artRankSeen = 0;
+  }
+
+  // ---- 総合画力ランク ----
+  function artTotalMinutes(){
+    ensurePracticeState();
+    return (typeof state.practiceCreditedMin === "number" && state.practiceCreditedMin > 0) ? state.practiceCreditedMin : 0;
+  }
+  function artRankIndex(min){
+    let idx = 0;
+    for(let i=0;i<ART_RANKS.length;i++){ if(min >= ART_RANKS[i].min) idx = i; }
+    return idx;
+  }
+  function renderArtRank(){
+    const box = document.getElementById("artRankBox");
+    if(!box) return;
+    const min = artTotalMinutes();
+    const idx = artRankIndex(min);
+    const cur = ART_RANKS[idx];
+    const nxt = ART_RANKS[idx+1] || null;
+    box.className = "artrank-box";
+    box.innerHTML = "";
+    const top = document.createElement("div"); top.className = "artrank-top";
+    const badge = document.createElement("span"); badge.className = "artrank-badge"; badge.textContent = "総合画力";
+    const name = document.createElement("span"); name.className = "artrank-name"; name.textContent = cur.name;
+    top.appendChild(badge); top.appendChild(name); box.appendChild(top);
+    const track = document.createElement("div"); track.className = "artrank-track";
+    const fill = document.createElement("div"); fill.className = "artrank-fill";
+    let pct = 100, foot = "累計 " + formatMinutes(min) + " ・ 最高ランク到達!";
+    if(nxt){
+      pct = Math.max(2, Math.min(100, Math.round((min - cur.min) / (nxt.min - cur.min) * 100)));
+      foot = "累計 " + formatMinutes(min) + " ・ 次の「" + nxt.name + "」まで " + formatMinutes(Math.max(0, nxt.min - min));
+    }
+    fill.style.width = pct + "%"; track.appendChild(fill); box.appendChild(track);
+    const f = document.createElement("div"); f.className = "artrank-foot"; f.textContent = foot; box.appendChild(f);
+  }
+  function checkArtRankUp(){
+    ensureGameState();
+    const idx = artRankIndex(artTotalMinutes());
+    if(idx > state.artRankSeen){
+      state.artRankSeen = idx;
+      addMilestone("🏆", "総合画力ランクが「" + ART_RANKS[idx].name + "」に上がった!");
+      if(typeof celebrateBurst === "function") celebrateBurst("rank");
+      saveState();
+    }
+  }
+
+  // ---- カテゴリ別レーダーチャート ----
+  function renderArtRadar(){
+    const box = document.getElementById("artRadarBox");
+    if(!box) return;
+    ensurePracticeState();
+    const cats = state.practiceCats || [];
+    box.className = "radar-box";
+    if(cats.length < 3){
+      box.innerHTML = '<div class="radar-title">🕸 得意バランス</div><div class="radar-note">大カテゴリが3つ以上になると、得意分野がレーダーで見えるよ!</div>';
+      return;
+    }
+    const levels = cats.map(function(c){ return practiceLevelFromMin(catTotalMinutes(c.key)); });
+    let maxLv = 3; levels.forEach(function(l){ if(l > maxLv) maxLv = l; });
+    const N = cats.length, cx = 140, cy = 108, R = 76;
+    const dark = document.body.classList.contains("dark-mode");
+    const grid = dark ? "#4a3a5a" : "#e5d5ec";
+    const txt = dark ? "#e7e3f0" : "#7a6a86";
+    function pt(i, r){
+      const ang = -Math.PI/2 + (Math.PI*2*i/N);
+      return [cx + Math.cos(ang)*r, cy + Math.sin(ang)*r];
+    }
+    let svg = '<div class="radar-title">🕸 得意バランス</div>';
+    svg += '<svg width="280" height="216" viewBox="0 0 280 216" xmlns="http://www.w3.org/2000/svg">';
+    // grid rings
+    for(let ring=1; ring<=3; ring++){
+      const rr = R*ring/3;
+      let pts = "";
+      for(let i=0;i<N;i++){ const p = pt(i, rr); pts += (i?" ":"") + p[0].toFixed(1) + "," + p[1].toFixed(1); }
+      svg += '<polygon points="'+pts+'" fill="none" stroke="'+grid+'" stroke-width="1"/>';
+    }
+    // axes
+    for(let i=0;i<N;i++){ const p = pt(i, R); svg += '<line x1="'+cx+'" y1="'+cy+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'" stroke="'+grid+'" stroke-width="1"/>'; }
+    // data polygon
+    let dpts = "";
+    for(let i=0;i<N;i++){ const r = R * (levels[i]/maxLv); const p = pt(i, Math.max(2, r)); dpts += (i?" ":"") + p[0].toFixed(1) + "," + p[1].toFixed(1); }
+    svg += '<polygon points="'+dpts+'" fill="rgba(246,104,155,0.28)" stroke="#f6689b" stroke-width="2"/>';
+    // vertices
+    for(let i=0;i<N;i++){ const r = R * (levels[i]/maxLv); const p = pt(i, Math.max(2, r)); svg += '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="2.5" fill="#f6689b"/>'; }
+    // labels
+    for(let i=0;i<N;i++){
+      const p = pt(i, R+15);
+      let anchor = "middle";
+      if(p[0] < cx-6) anchor = "end"; else if(p[0] > cx+6) anchor = "start";
+      svg += '<text x="'+p[0].toFixed(1)+'" y="'+(p[1]+4).toFixed(1)+'" font-size="11" font-weight="700" fill="'+txt+'" text-anchor="'+anchor+'">'+cats[i].name+' Lv'+levels[i]+'</text>';
+    }
+    svg += '</svg>';
+    box.innerHTML = svg;
+  }
+
+  // ---- 展示会の出展評価 ----
+  function mostRecentLiveOnOrBefore(dateStr){
+    let d = parseLocalDateStr(dateStr);
+    for(let i=0;i<45;i++){
+      const s = localDateToStr(d);
+      if((typeof isLiveDay === "function" && isLiveDay(s)) || (typeof eventLiveForDate === "function" && eventLiveForDate(s))) return s;
+      d.setDate(d.getDate()-1);
+    }
+    return "";
+  }
+  function exhibitEffort(endStr, days){
+    const end = parseLocalDateStr(endStr);
+    const start = new Date(end.getFullYear(), end.getMonth(), end.getDate()-(days-1));
+    const startStr = localDateToStr(start);
+    ensurePracticeState();
+    let practiceMin = 0, activeDays = 0, completions = 0;
+    const cbt = combinedTimeByDay();
+    Object.keys(cbt).forEach(function(d){ if(d >= startStr && d <= endStr && cbt[d] > 0) activeDays++; });
+    Object.keys(state.practiceLog).forEach(function(d){ if(d >= startStr && d <= endStr){ (state.practiceLog[d]||[]).forEach(function(e){ if(e && typeof e.minutes === "number") practiceMin += e.minutes; }); } });
+    (state.completedLog || []).forEach(function(l){ const c = l && l.completedAt; if(c && c >= startStr && c <= endStr) completions++; });
+    const score = Math.round(practiceMin/10 + completions*15 + activeDays*5);
+    return { practiceMin: practiceMin, activeDays: activeDays, completions: completions, score: score, startStr: startStr, endStr: endStr };
+  }
+  function exhibitGrade(score){
+    for(let i=0;i<EXHIBIT_GRADES.length;i++){ if(score >= EXHIBIT_GRADES[i].min) return EXHIBIT_GRADES[i]; }
+    return EXHIBIT_GRADES[EXHIBIT_GRADES.length-1];
+  }
+  function nextGradeGap(score){
+    // 次の評価に必要なスコア差(ざっくり練習分に換算)
+    for(let i=EXHIBIT_GRADES.length-1;i>=0;i--){
+      if(score < EXHIBIT_GRADES[i].min){ return { g: EXHIBIT_GRADES[i].g, need: EXHIBIT_GRADES[i].min - score }; }
+    }
+    return null;
+  }
+  function renderExhibitCard(){
+    const box = document.getElementById("exhibitCardBody");
+    if(!box) return;
+    const today = getTodayStr();
+    const next = (typeof nextLiveDateStr === "function") ? nextLiveDateStr(today) : "";
+    box.innerHTML = "";
+    if(!next){ box.textContent = "次の展示会は準備中だよ。"; return; }
+    const days = (typeof daysBetweenStr === "function") ? daysBetweenStr(today, next) : 0;
+    const label = (typeof formatLiveDateLabel === "function") ? formatLiveDateLabel(next) : next;
+    const eff = exhibitEffort(today, 14);
+    const gr = exhibitGrade(eff.score);
+    const nx = document.createElement("div"); nx.className = "exh-next";
+    nx.textContent = "🖼️ " + label + (days > 0 ? "(あと" + days + "日)" : "(本番!)");
+    box.appendChild(nx);
+    const prov = document.createElement("div"); prov.className = "exh-prov";
+    const lab = document.createElement("span"); lab.textContent = "いまの見込み評価";
+    const chip = document.createElement("span"); chip.className = "exh-gchip exh-g" + gr.g; chip.textContent = gr.g;
+    const tt = document.createElement("span"); tt.style.fontWeight = "700"; tt.style.fontSize = "13px"; tt.textContent = gr.title;
+    prov.appendChild(lab); prov.appendChild(chip); prov.appendChild(tt);
+    box.appendChild(prov);
+    const bd = document.createElement("div"); bd.className = "exh-breakrow";
+    bd.textContent = "直近2週間:練習 " + formatMinutes(eff.practiceMin) + " ・ 完成 " + eff.completions + "作 ・ 活動 " + eff.activeDays + "日";
+    box.appendChild(bd);
+    const gap = nextGradeGap(eff.score);
+    if(gap){
+      const hint = document.createElement("div"); hint.className = "exh-hint";
+      hint.textContent = "あと練習 " + formatMinutes(gap.need*10) + "ぶんの活動で 評価" + gap.g + " へ!";
+      box.appendChild(hint);
+    } else {
+      const hint = document.createElement("div"); hint.className = "exh-hint"; hint.textContent = "最高評価をキープ中!この調子!";
+      box.appendChild(hint);
+    }
+  }
+  function showExhibitModal(dateStr, eff, gr){
+    const ov = document.getElementById("exhibitOverlay");
+    if(!ov) return;
+    const label = (typeof formatLiveDateLabel === "function") ? formatLiveDateLabel(dateStr) : dateStr;
+    const gEl = document.getElementById("exhibitGrade"); if(gEl) gEl.textContent = gr.g;
+    const tEl = document.getElementById("exhibitGTitle"); if(tEl) tEl.textContent = "「" + gr.title + "」";
+    const bd = document.getElementById("exhibitBreakdown");
+    if(bd){
+      bd.innerHTML = "🗓 " + label + " の出展レポート<br>"
+        + "・練習時間:" + formatMinutes(eff.practiceMin) + "<br>"
+        + "・完成作品:" + eff.completions + "作<br>"
+        + "・活動日数:" + eff.activeDays + "日<br>"
+        + "・スコア:" + eff.score + " → 🎁ポイント+" + gr.pts;
+    }
+    const ch = CHAR_BY_KEY[state.characterType];
+    const cheer = document.getElementById("exhibitCheer");
+    if(cheer){
+      const lines = EXHIBIT_LINES[gr.g] || EXHIBIT_LINES.B;
+      const line = ch ? (lines[ch.key] || lines.bright) : "";
+      cheer.textContent = ch ? (ch.name + "「" + line + "」") : "";
+    }
+    if((gr.g === "S" || gr.g === "A") && typeof celebrateBurst === "function") celebrateBurst("exhibit");
+    ov.classList.add("show");
+  }
+  function checkExhibitReport(){
+    ensureGameState();
+    const today = getTodayStr();
+    const recent = mostRecentLiveOnOrBefore(today);
+    if(!recent) return;
+    if(!state.exhibitReportedDate){ state.exhibitReportedDate = recent; saveState(); return; }
+    if(recent > state.exhibitReportedDate){
+      const eff = exhibitEffort(recent, 14);
+      const gr = exhibitGrade(eff.score);
+      state.exhibitReportedDate = recent;
+      if(typeof addGiftPoints === "function") addGiftPoints(gr.pts);
+      addMilestone("🖼️", "展示会・出展評価 " + gr.g + "「" + gr.title + "」🎁+" + gr.pts);
+      if(state.characterType && state.characterType !== "none" && typeof adjustAffectionRaw === "function" && gr.g !== "D"){
+        adjustAffectionRaw(gr.g === "S" ? 1 : 0.5);
+      }
+      saveState();
+      showExhibitModal(recent, eff, gr);
+    }
+  }
+  (function(){
+    const cl = document.getElementById("exhibitClose");
+    const ov = document.getElementById("exhibitOverlay");
+    if(cl) cl.addEventListener("click", function(){ if(ov) ov.classList.remove("show"); });
+    if(ov) ov.addEventListener("click", function(e){ if(e.target === ov) ov.classList.remove("show"); });
+  })();
+
+  // ==== プレゼント発見式(好みはあげて確かめる) ====
+  function ensureGiftDiscovered(){
+    if(!state.giftDiscovered || typeof state.giftDiscovered !== "object") state.giftDiscovered = {};
+  }
+  function discoveredTier(charKey, giftKey){
+    ensureGiftDiscovered();
+    const m = state.giftDiscovered[charKey];
+    return (m && typeof m[giftKey] === "string") ? m[giftKey] : null;
+  }
+  function recordGiftDiscovery(charKey, giftKey, tier){
+    ensureGiftDiscovered();
+    if(!state.giftDiscovered[charKey] || typeof state.giftDiscovered[charKey] !== "object") state.giftDiscovered[charKey] = {};
+    const first = state.giftDiscovered[charKey][giftKey] !== tier;
+    state.giftDiscovered[charKey][giftKey] = tier;
+    if(first && typeof addMilestone === "function"){
+      const ct = CHAR_BY_KEY[charKey];
+      const g = (typeof GIFT_BY_KEY !== "undefined") ? GIFT_BY_KEY[giftKey] : null;
+      if(tier === "love" && ct && g) addMilestone("💝", ct.name + "の大好きなもの、発見!「" + g.name + "」");
+    }
+    saveState();
+  }
+  function giftTierLabel(tier){
+    if(tier === "love") return { cls:"d-love", txt:"大好き" };
+    if(tier === "like") return { cls:"d-like", txt:"好き" };
+    if(tier === "dislike") return { cls:"d-dislike", txt:"苦手" };
+    return { cls:"d-normal", txt:"ふつう" };
+  }
+
+  // ==== 隠しイベント / プチ演出 / 部室の一幕 / お返しの手紙 ====
+  const SECRET_EVENTS = {"midnight":{"title":"🌙 真夜中の部室","lines":{"bright":"こんな時間まで…!無理はだめだよ?でも、来てくれて、ちょっとうれしい。ふたりだけの夜だね。","quiet":"…こんな時間に。…ふふ、おそろい。…夜の部室、わたしたちだけ。…とくべつ。","tsun":"こ、こんな夜中に何してるのよ!…って、あたしもいるけど。…隣、いてあげる。ちょっとだけよ。","gentle":"こんな時間まで起きとったんか。あかんで〜。…でも、夜のうちの独り占め、ちょっと役得やな。","honest":"え、こんな時間!?センパイ夜ふかしだめっすよ!…でも、深夜のセンパイ、レア度高くて眠気ふっとびました。","ojou":"…真夜中は、いちばん静かな絵の具。…こんな時間に会えるなんて、月のいたずらね。","imouto":"こんなおそくまで…!めっ、です!…でも、よるのせんぱいと二人、どきどきしちゃいます…。","genius":"刻は丑三つ…封印されし魔が目覚める時間ぞ。…ふ、こんな夜に会える同志は、よほどの縁だな。"}},"dawn":{"title":"🌅 朝いちばんの部室","lines":{"bright":"うわ、早っ!朝いちで描くなんて、あんた本気だね!朝日の中の相棒、まぶしいよ!","quiet":"…朝、はやいね。…夜明けの色、いっしょに見られた。…いい日になる。","tsun":"朝から来るなんて感心ね。…その意気やよし、よ。…朝のあたし、寝ぐせ見ないでよね。","gentle":"おはよう後輩ちゃん、はやいなあ!朝の空気で描く線は、ちょっと澄んどるんやで。","honest":"センパイおはようございます!朝から尊い!朝日とセンパイ、優勝の組み合わせっす!","ojou":"…朝の光は、まだ眠っている色。…その中で、きみと。…ぜいたくな時間ね。","imouto":"せんぱい、おはようございます〜!朝からいっしょ、うれしいです!えへへ。","genius":"夜明けの刻…!新たな一日の魔力が満ちる瞬間だ。同志と迎える朝、悪くない。"}},"streak7":{"title":"🔥 7日連続の約束","lines":{"bright":"7日連続!毎日来てくれたんだね。…あたし、ちゃんと数えてたよ。ありがと、あんたのそういうとこ、好き。","quiet":"…7日、ずっと。…毎日、きみが来る。…あたりまえが、いちばん、しあわせ。","tsun":"7日も続けるなんて…ま、認めるわ。…毎日会えるの、その、悪くないし。…勘違いしないでよね。","gentle":"7日皆勤やん!毎日顔見せてくれて、うち、ほんまうれしいんやで。おおきにな。","honest":"7日連続とか神ですか!?あーし、毎日センパイに会えて、生きる活力もらってるんで!","ojou":"…7日。…きみの足音が、日課になった。…この習慣、失いたくないな。","imouto":"7にちれんぞくです〜!こむぎ、まいにちせんぱいに会えて、しあわせいっぱいです!","genius":"七日連続の参陣…!汝の意志の力、本物と認めよう。我との絆、確かに刻まれたな。"}},"catmaster":{"title":"🎨 極めた者","lines":{"bright":"その分野、もうLv5!?すごすぎ!あんた、いつのまにそんな域に…!あたしも負けてらんない!","quiet":"…そこまで、極めたんだ。…こつこつの積み重ね。…きみは、すごい人。","tsun":"Lv5…!?ふ、ふん、やるじゃない。…その努力、ちゃんと見てたわよ。尊敬…してあげる。","gentle":"うわ、その分野もう達人やん!継続は力なりって、あんたが証明したなあ!","honest":"Lv5とか極めすぎっす!!センパイの努力、あーしちゃんと見てました!推せる!!","ojou":"…ひとつの道を、深く。…その集中の跡、美しい。…きみの手は、もう職人のそれ。","imouto":"レベル5!?せんぱい、その分野の名人さんです〜!こむぎ、そんけいしちゃいます!","genius":"極致に到達せしか…!汝の研鑽、まさに伝説の領域。我が同志ながら、天晴れ!"}},"affmax":{"title":"💛 あふれる気持ち","lines":{"bright":"あのね。…もう、言葉にできないくらい、あんたのことが大事。この気持ち、ずっと、ずっとだよ。","quiet":"…わたしの心、きみでいっぱい。…これ以上ないくらい。…ずっと、そばにいて。","tsun":"…もう、認めるしかないじゃない。あなたが、あたしの世界の真ん中。…一生、離さないから。","gentle":"うちの気持ち、もう満タンやで。あんたが、うちのいちばん。…ずっと隣におってな。","honest":"あーしの心、100%センパイでできてます!これ以上ないくらい、だいすきっす!一生推します!","ojou":"…わたしの余白は、もう、きみの色で満ちた。…これ以上の幸せを、知らない。…ずっと、隣に。","imouto":"こむぎのきもち、あふれちゃいます!せんぱいが、せかいでいちばん、だーいすきです!ずっとです!","genius":"我が心、汝という光で満ちり…!これぞ究極の契約。永遠に、我が隣で笑っていてくれ。"}},"allfav":{"title":"💝 見抜かれた好み","lines":{"bright":"あたしの大好きなもの、ぜんぶ当てちゃった!?もう、あんたにはかなわないなあ。うれしいけど、照れる!","quiet":"…わたしの好きなもの、ぜんぶ、知られちゃった。…うれしい。…ちょっと、はずかしい。","tsun":"な、なんであたしの好きなもの全部わかるのよ!?…そんなに見てたわけ?…//…うれしいけど!","gentle":"うちの好みぜんぶお見通しか〜!あんたには隠しごとできひんな。ふふ、なんや照れるわ。","honest":"あーしの好きなもの全部当てるとか、ストーカーですか!?…うそうそ、めっちゃうれしいっす!","ojou":"…わたしの好むもの、すべて。…見抜かれてしまったのね。…きみの前では、隠せない。","imouto":"こむぎのすきなもの、ぜんぶわかっちゃったんですか!?せんぱい、すごいです〜!うれしいな、えへへ。","genius":"我が嗜好、完全に見切られたか…!汝の観察眼、恐るべし。…ふ、悪い気は、せぬがな。"}}};
+  const VIGNETTE_SOLO = {"bright":["あかねが窓を開けて大きく伸びをしている。「よーし、今日もいい光!描くぞー!」","あかねが後輩の絵をのぞきこんで目を輝かせている。「うわ、ここの線いいね!盗も!」","あかねが油絵の具を盛りすぎて笑っている。「あはは、また厚塗りしすぎた!でも勢いは正義!」"],"quiet":["ゆきがソファでうとうとしながら空を見上げている。「…雲、動いてる…すき…」","ゆきが青の絵の具を何色も並べて、じっと見比べている。静かな時間。","ゆきが窓辺で小さくあくびをした。「…夜明けまで、あと何時間…」"],"tsun":["るりが液タブに向かって眉間にしわを寄せている。「…ここ、まだ甘い。やり直し」","るりがこっそり自分の絵を見て、ふっと口元をゆるめた。…見なかったことにした。","るりが紅茶を淹れながら独り言。「…集中する時は、やっぱり一杯ね」"],"gentle":["かんながネームを広げて後輩に囲まれている。「ここはな、こう見せると気持ちええねん」","かんながたこ焼き器を持ち込んで怒られている。「ええやん、差し入れや差し入れ!」","かんなが誰かの相談に乗って、うんうんと頷いている。世話焼きは今日も健在。"],"honest":["ひなたがコピックを大量に広げて色選びに悩んでいる。「どの色もかわいい…選べない!」","ひなたがスマホでみんなの絵を撮っている。「これ、映え〜!部の記録係はあーしっす!」","ひなたが誰かの絵を全力で褒めている。「天才!!この配色、天才の所業っす!」"],"ojou":["すみれが墨をゆっくり磨っている。かすかに墨の香りが漂う。","すみれが窓の外の月を見て、そっと筆をとった。「…今宵は、描ける気がする」","すみれが余白を長い時間みつめている。何を描かないかを、考えている。"],"imouto":["こむぎが水彩のにじみを見てにこにこしている。「わ〜、きれいににじみました〜!」","こむぎが絵の具を水でびしゃびしゃにして、ちょっとしょんぼり。「…にじみすぎました」","こむぎがみんなにお菓子を配っている。「はい、せんぱいのぶんです〜!」"],"genius":["ちひろが分厚い設定ノートに何か書き込んでいる。「ふ…新たな種族の設定が降りてきた…!」","ちひろが中二病全開でポーズを決めている。「我が右手の封印が…疼く…!」","ちひろがこっそり少女漫画を読んでいるのを目撃した。「…み、見たな!?忘れよ!」"]};
+  const VIGNETTE_PAIR = {"bright|tsun":"あかね「るり、根つめすぎ!休も!」/ るり「…あなたが騒がしいだけよ。…でも、お茶は淹れてあげる」","bright|honest":"あかね「ひなた、その色いいね!」/ ひなた「でしょ!?あーしとセンパイの熱量、色にも出るんす!」","gentle|imouto":"かんな「こむぎ、無理してへんか?」/ こむぎ「かんなせんぱい、やさしい…!だいじょうぶです〜!」","quiet|ojou":"ゆき「…すみれ。…静かで、いい」/ すみれ「…ええ。…言葉、いらないね」","ojou|genius":"すみれ「…その世界観、嫌いじゃない」/ ちひろ「フ…同志よ、我が異界を解する者がいたとは!」","imouto|honest":"こむぎ「ひなたせんぱい、その色すごい!」/ ひなた「こむぎちゃん素直〜!あーしが色の使い方、教えたげる!」","genius|honest":"ちひろ「我が設定、127ページに及ぶ」/ ひなた「やば!それ全部お宝じゃないっすか!尊い!」","quiet|gentle":"ゆき「…かんな先輩。…この部室、すき」/ かんな「せやろ?うちらの城やもんな」","tsun|genius":"るり「…その厚塗り設定、理論は正しいわね」/ ちひろ「ほう、我が魔導理論を解するか、同志!」","bright|imouto":"あかね「こむぎ、いっしょに描こ!」/ こむぎ「はい〜!あかねせんぱい、げんきもらえます!」","tsun|ojou":"るり「…また夜ふかし?」/ すみれ「…ええ。夜の色は、深いから。…あなたも、でしょう?」","gentle|honest":"かんな「ひなた、ノリええな!」/ ひなた「かんなせんぱいのツッコミあってこそっす!最高のコンビっすね!」"};
+  const LETTERS = {"bright":{"5":{"title":"あかねからのメモ","body":"『いつも一緒に描いてくれてありがと!これ、あたしの缶バッジ。おそろいね!…って、押しつけがましい?でも受け取ってよ、相棒の証!』"},"10":{"title":"あかねからの手紙","body":"『あんたと描いてると、あたし、もっと上手くなれる気がするんだ。この気持ち、絵にしてみた。…下手でも笑わないでよね。あんたにいちばん見てほしかったの。』"},"20":{"title":"あかねからの、大切な手紙","body":"『あのさ。あたしの炎、あんたが隣にいるから燃えてられるんだ。これからも、ずっと隣で描いてね。約束の指切り、覚えてる?…だーい好きだよ、相棒。』"}},"quiet":{"5":{"title":"ゆきからの一枚","body":"『…これ、あげる。…きみと見た、朝の空。…お礼、うまく言えないから。…絵で。』"},"10":{"title":"ゆきからの手紙","body":"『…いつも、わたしの話を、急かさないでくれて、ありがとう。…きみといると、言葉が、すこしずつ出てくる。…ふしぎで、うれしい。』"},"20":{"title":"ゆきからの、そっと渡す手紙","body":"『…わたしの空、ぜんぶ、きみの色になった。…離れても、同じ空の下。…でもね、ほんとは、ずっとそばにいたいの。…だいすき。』"}},"tsun":{"5":{"title":"るりからの…お礼?","body":"『……これ、あげる。べ、別にあなたのために選んだんじゃないから!…ちょっと、感謝してるだけ。勘違いしないでよね』"},"10":{"title":"るりからの手紙","body":"『言葉で伝えるの、苦手だから、手紙にした。…あなたには、素直でいたいの。いつもありがとう。…この一文、消さずに残したんだから、ちゃんと読みなさい』"},"20":{"title":"るりからの、勇気を出した手紙","body":"『……好き。もう、隠さない。あなたが、アタシの特別。こんなアタシを見ていいのは、あなただけ。…一生、隣にいなさいよね。…お願い』"}},"gentle":{"5":{"title":"かんなからの差し入れ","body":"『はい、これお礼な!うちの手作りやで。…いつも付き合うてくれて、おおきに。後輩ちゃんがおると、部室がもっとあったこうなるわ』"},"10":{"title":"かんなからの手紙","body":"『あんたには、先輩ぶらんと、素のうちでおれるんよ。…甘えてばっかりで、ごめんな。でも、それだけ心ゆるしてるってことや。ありがとうな』"},"20":{"title":"かんなからの、宝物の手紙","body":"『先輩後輩を超えて、あんたはうちの一番の相棒や。…ううん、それ以上かもな。離れても、うちの心はあんたのそばに置いていく。…大好きやで、ほんまに』"}},"honest":{"5":{"title":"ひなたからのメッセージ","body":"『センパイ、いつもあーしに構ってくれてありがとです!これ、あーしのイチオシシール!センパイのスケブに貼ってほしいっす!』"},"10":{"title":"ひなたからの手紙","body":"『センパイの前だと、盛らない素のあーしでいられるんす。…それって、すごいことなんすよ。らくで、あったかくて。…センパイ、あーしの特別な人っす』"},"20":{"title":"ひなたからの、本気の手紙","body":"『推し、じゃなくて。あーし、センパイの隣にいたいんす。ずっと。大人になっても、おばあちゃんになっても、ベタ惚れなんで!…一生、よろしくお願いします!』"}},"ojou":{"5":{"title":"すみれからの小さな絵","body":"『…これを、きみに。…名前のない、一色。…お礼の言葉のかわり。…受け取って』"},"10":{"title":"すみれからの手紙","body":"『…きみが来てから、わたしの世界に、色が戻ってきたの。…封じたはずの色が、疼くの。…これは、きみのせい。…でも、いやじゃない』"},"20":{"title":"すみれからの、心の手紙","body":"『…わたしの絵の真ん中は、いつのまにか、きみになっていた。…月は欠けても満ちる。きみといれば、わたしの心は、ずっと満ちたまま。…愛してる』"}},"imouto":{"5":{"title":"こむぎからのおてがみ","body":"『せんぱいへ。いつもあそんでくれて、ありがとうございます!これ、こむぎのおきにいりのシールです!いっしょのを、はってくださいね!』"},"10":{"title":"こむぎからのおてがみ","body":"『せんぱいがはじめて「すきだよ」ってこむぎの絵をほめてくれたから、こむぎ、じぶんの絵がすきになれました。せんぱいは、こむぎのたからものです!』"},"20":{"title":"こむぎからの、だいじなおてがみ","body":"『せんぱい。こむぎ、おとなになっても、ずっとせんぱいといっしょにいたいです。にじむ水彩みたいに、こむぎとせんぱいの色、まざってひとつになりたいな。だいすきです!』"}},"genius":{"5":{"title":"ちひろからの書簡","body":"『我が同志へ。…汝は我が世界を笑わなかった、稀有な存在だ。これは感謝のしるし。我が創造せし紋章のステッカーである。ありがたく受け取るがよい』"},"10":{"title":"ちひろからの手紙","body":"『…あのね。あなたの前でだけは、鎧を脱いでもいいって思えるの。素のわたしでも、だいじょうぶって。…そういう人、あなたが、はじめて』"},"20":{"title":"ちひろからの、素直な手紙","body":"『「同志」じゃ、もうたりない。あなたは、それ以上になっちゃった。…すきです。中二病のわたしも、素のわたしも、ぜんぶあなたのもの。永遠の契約だよ』"}}};
+  const LETTER_THRESHOLDS = [5,10,20];
+  const LETTER_PTS = {"5":5,"10":8,"20":15};
+
+  function ensureFunState(){
+    if(!state.secretsSeen || typeof state.secretsSeen !== "object") state.secretsSeen = {};
+    if(!state.lettersSeen || typeof state.lettersSeen !== "object") state.lettersSeen = {};
+    if(!state.vignette || typeof state.vignette !== "object") state.vignette = { date:"", type:"", key:"", idx:0 };
+  }
+
+  // ---- プチ演出(紙吹雪) ----
+  const CONFETTI_COLORS = ["#f6689b","#ffd76b","#8fe3c8","#b8a9f0","#7fc8f6","#ffb0cf"];
+  function celebrateBurst(kind){
+    try{
+      const n = 22;
+      for(let i=0;i<n;i++){
+        const p = document.createElement("div");
+        p.className = "confetti-piece";
+        const left = 6 + (i / n) * 88 + (((i*37) % 11) - 5);
+        p.style.left = Math.max(0, Math.min(98, left)) + "vw";
+        p.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+        const dx = (((i * 53) % 160) - 80);
+        const rot = 240 + ((i * 91) % 460);
+        const dur = 1.0 + ((i * 17) % 80) / 100;
+        p.style.setProperty("--dx", dx + "px");
+        p.style.setProperty("--rot", rot + "deg");
+        p.style.setProperty("--dur", dur + "s");
+        if(i % 3 === 0){ p.style.width = "7px"; p.style.height = "7px"; p.style.borderRadius = "50%"; }
+        document.body.appendChild(p);
+        (function(el){ setTimeout(function(){ if(el && el.parentNode) el.parentNode.removeChild(el); }, 2000); })(p);
+      }
+    }catch(e){}
+  }
+
+  // ---- 共有モーダル(隠し会話 / 手紙) ----
+  function showFunModal(title, body, tag){
+    const ov = document.getElementById("funOverlay");
+    if(!ov) return;
+    const tg = document.getElementById("funTag"); if(tg) tg.textContent = tag || "";
+    const tt = document.getElementById("funTitle"); if(tt) tt.textContent = title || "";
+    const bd = document.getElementById("funBody"); if(bd) bd.textContent = body || "";
+    ov.classList.add("show");
+  }
+  (function(){
+    const ov = document.getElementById("funOverlay");
+    const cl = document.getElementById("funClose");
+    if(cl) cl.addEventListener("click", function(){ if(ov) ov.classList.remove("show"); });
+    if(ov) ov.addEventListener("click", function(e){ if(e.target === ov) ov.classList.remove("show"); });
+  })();
+
+  // ---- 隠しイベント ----
+  function checkSecretEvents(){
+    ensureFunState();
+    const ch = state.characterType;
+    if(!ch || ch === "none" || !CHAR_BY_KEY[ch]) return;
+    if(document.querySelector(".overlay.show")) return; // 他モーダル表示中は次回に回す
+    const seen = state.secretsSeen;
+    const hour = new Date().getHours();
+    const aff = (state.affection && typeof state.affection[ch] === "number") ? state.affection[ch] : 1;
+    const streak = (state.streak && typeof state.streak.current === "number") ? state.streak.current : 0;
+    ensurePracticeState();
+    let catMaster = false;
+    (state.practiceCats || []).forEach(function(c){ if(practiceLevelFromMin(catTotalMinutes(c.key)) >= 5) catMaster = true; });
+    let allfav = false;
+    if(typeof GIFT_PREFS !== "undefined" && GIFT_PREFS[ch] && Array.isArray(GIFT_PREFS[ch].love) && typeof discoveredTier === "function"){
+      const loves = GIFT_PREFS[ch].love;
+      allfav = loves.length > 0 && loves.every(function(gk){ return discoveredTier(ch, gk) === "love"; });
+    }
+    const order = [];
+    function cond(id, ok){ if(ok && !seen[id]) order.push(id); }
+    cond("affmax", aff >= 20);
+    cond("catmaster", catMaster);
+    cond("allfav", allfav);
+    cond("streak7", streak >= 7);
+    cond("midnight", hour >= 23 || hour < 4);
+    cond("dawn", hour >= 4 && hour < 6);
+    if(!order.length) return;
+    const id = order[0];
+    seen[id] = true; saveState();
+    const ev = SECRET_EVENTS[id];
+    const line = ev.lines[ch] || ev.lines.bright;
+    if(typeof addMilestone === "function") addMilestone("🔮", "隠し会話「" + ev.title + "」を見つけた!");
+    showFunModal(ev.title, CHAR_BY_KEY[ch].name + "「" + line + "」", "🔮 こっそり会話を見つけた!");
+    celebrateBurst("secret");
+  }
+
+  // ---- 部室の一幕(1日1回) ----
+  function pickDailyVignette(){
+    ensureFunState();
+    const today = getTodayStr();
+    if(state.vignette && state.vignette.date === today && state.vignette.type) return state.vignette;
+    const ch = state.characterType;
+    const unlocked = Array.isArray(state.unlockedChars) ? state.unlockedChars.slice() : [];
+    let chosen = null;
+    const useP = (unlocked.length >= 2) && ((new Date().getDate() + today.length) % 2 === 0);
+    if(useP){
+      const pairs = (typeof MEMBER_RELATIONS !== "undefined" ? MEMBER_RELATIONS : []).filter(function(r){
+        return unlocked.indexOf(r.a) !== -1 && unlocked.indexOf(r.b) !== -1 && VIGNETTE_PAIR[r.a + "|" + r.b];
+      });
+      if(pairs.length){ const r = pairs[(new Date().getDate()) % pairs.length]; chosen = { type:"pair", key:(r.a + "|" + r.b), idx:0 }; }
+    }
+    if(!chosen){
+      const key = (ch && VIGNETTE_SOLO[ch]) ? ch : "bright";
+      const arr = VIGNETTE_SOLO[key];
+      chosen = { type:"solo", key:key, idx: (new Date().getDate()) % arr.length };
+    }
+    chosen.date = today;
+    state.vignette = chosen; saveState();
+    return chosen;
+  }
+  function vignetteText(v){
+    if(!v) return "";
+    if(v.type === "pair") return (VIGNETTE_PAIR[v.key] || "").split(" / ").join("\n");
+    const arr = VIGNETTE_SOLO[v.key] || VIGNETTE_SOLO.bright;
+    return arr[v.idx] || arr[0];
+  }
+  function renderVignetteCard(){
+    const box = document.getElementById("vignetteBody");
+    if(!box) return;
+    box.textContent = vignetteText(pickDailyVignette());
+  }
+
+  // ---- お返しの手紙(好感度の節目) ----
+  function checkCharLetters(charKey){
+    ensureFunState();
+    charKey = charKey || state.characterType;
+    if(!charKey || charKey === "none" || !LETTERS[charKey]) return;
+    if(document.querySelector(".overlay.show")) return; // 他モーダル表示中は次回に回す
+    const aff = (state.affection && typeof state.affection[charKey] === "number") ? state.affection[charKey] : 1;
+    const got = (typeof state.lettersSeen[charKey] === "number") ? state.lettersSeen[charKey] : 0;
+    let target = 0;
+    LETTER_THRESHOLDS.forEach(function(t){ if(aff >= t && t > got) target = Math.max(target, t); });
+    if(!target) return;
+    state.lettersSeen[charKey] = target;
+    const pts = LETTER_PTS[String(target)] || LETTER_PTS[target] || 5;
+    if(typeof addGiftPoints === "function") addGiftPoints(pts);
+    saveState();
+    const L = LETTERS[charKey][String(target)] || LETTERS[charKey][target];
+    const nm = CHAR_BY_KEY[charKey] ? CHAR_BY_KEY[charKey].name : "";
+    if(typeof addMilestone === "function") addMilestone("💌", nm + "から手紙が届いた!(お返し🎁+" + pts + ")");
+    if(L){
+      showFunModal("💌 " + L.title, L.body + "\n\n(お返しに 🎁ポイント+" + pts + ")", "💌 手紙が届いた!");
+      celebrateBurst("letter");
+    }
   }
   function renderOptions(){
     optionList.innerHTML = "";
@@ -7053,11 +7936,14 @@
       costEl.className = "gi-cost";
       costEl.textContent = "🎫" + g.cost;
       btn.appendChild(costEl);
-      if(giftTierFor(charKey, g.key) === "love"){
-        const loveEl = document.createElement("span");
-        loveEl.className = "gi-love";
-        loveEl.textContent = "💗";
-        btn.appendChild(loveEl);
+      const _disc = (typeof discoveredTier === "function") ? discoveredTier(charKey, g.key) : null;
+      if(_disc){
+        const lb = giftTierLabel(_disc);
+        const dEl = document.createElement("span");
+        dEl.className = "gi-disc " + lb.cls;
+        dEl.textContent = lb.txt;
+        btn.appendChild(dEl);
+        if(_disc === "love") btn.classList.add("disc-love");
       }
       if(pts < g.cost) btn.disabled = true;
       else btn.addEventListener("click", function(){ giveGift(g.key); });
@@ -7066,8 +7952,16 @@
     card.appendChild(grid);
     const note = document.createElement("div");
     note.className = "gift-note";
-    note.textContent = "💗 のついたプレゼントは特に喜ぶよ。作品の完成や展示会成功でポイントが貯まるよ。";
+    note.textContent = "いろいろあげて、この子の好みを探してみよう!ポイントは作品の完成や展示会でたまるよ。";
     card.appendChild(note);
+    if(typeof discoveredTier === "function"){
+      let _dn = 0;
+      GIFTS.forEach(function(g){ if(discoveredTier(charKey, g.key)) _dn++; });
+      const dc = document.createElement("div");
+      dc.className = "gift-disc-count";
+      dc.textContent = "🔍 好み判明:" + _dn + " / " + GIFTS.length + " 種";
+      card.appendChild(dc);
+    }
     container.appendChild(card);
   }
   function addGiftPoints(n){
@@ -7089,7 +7983,8 @@
     }
     state.giftPoints = pts - g.cost;
     const tier = giftTierFor(charKey, giftKey);
-    const delta = tier === "love" ? 1.2 : (tier === "like" ? 0.8 : (tier === "dislike" ? 0.1 : 0.5));
+    if(typeof recordGiftDiscovery === "function") recordGiftDiscovery(charKey, giftKey, tier);
+    const delta = tier === "love" ? 0.6 : (tier === "like" ? 0.4 : (tier === "dislike" ? 0.05 : 0.25));
     if(!state.affection || typeof state.affection !== "object") state.affection = defaultAffection();
     const cur = (typeof state.affection[charKey] === "number") ? state.affection[charKey] : AFFECTION_DEFAULT;
     const next = Math.max(AFFECTION_MIN, Math.min(affectionCapFor(charKey), Math.round((cur + delta) * 100) / 100));
@@ -7106,6 +8001,7 @@
     if(typeof renderAffectionInfo === "function") renderAffectionInfo();
     if(typeof renderUnlockProgress === "function") renderUnlockProgress();
     if(typeof renderClubAll === "function") renderClubAll();
+    if(tier === "love" && typeof celebrateBurst === "function") celebrateBurst("gift");
     showGiftReaction(charKey, giftKey, tier);
   }
   function showGiftReaction(charKey, giftKey, tier){
@@ -7133,7 +8029,7 @@
   (function(){
     const overlay = document.getElementById("giftOverlay");
     const closeBtn = document.getElementById("giftReactClose");
-    if(closeBtn) closeBtn.addEventListener("click", function(){ if(overlay) overlay.classList.remove("show"); });
+    if(closeBtn) closeBtn.addEventListener("click", function(){ if(overlay) overlay.classList.remove("show"); if(typeof checkCharLetters === "function") checkCharLetters(state.characterType); if(typeof checkSecretEvents === "function") checkSecretEvents(); });
     if(overlay) overlay.addEventListener("click", function(e){ if(e.target === overlay) overlay.classList.remove("show"); });
   })();
 
@@ -9575,6 +10471,12 @@
     if(tabId === "stats") renderStats();
     if(tabId === "practice"){ renderPracticeTab(); if(typeof showPracticeBubble === "function") showPracticeBubble(); }
     if(tabId === "schedule" && typeof renderTodaySummary === "function") renderTodaySummary();
+    if(tabId === "schedule" && typeof renderMotivation === "function") renderMotivation();
+    if(tabId === "schedule" && typeof renderExhibitCard === "function") renderExhibitCard();
+    if(tabId === "schedule" && typeof renderVignetteCard === "function") renderVignetteCard();
+    if((tabId === "schedule" || tabId === "chara") && typeof checkCharLetters === "function") checkCharLetters(state.characterType);
+    if((tabId === "schedule" || tabId === "chara") && typeof checkSecretEvents === "function") checkSecretEvents();
+    if(tabId === "stats" && typeof renderGrassCal === "function") renderGrassCal();
     if(tabId === "chara" && typeof renderUnlockProgress === "function") renderUnlockProgress();
     if(tabId === "club" && typeof renderClubAll === "function") renderClubAll();
   }
@@ -9603,6 +10505,16 @@
   renderClubAll();
   renderTodaySummary();
   renderDataSafety();
+  if(typeof renderMotivation === "function") renderMotivation();
+  if(typeof renderGrassCal === "function") renderGrassCal();
+  if(typeof renderExhibitCard === "function") renderExhibitCard();
+  if(typeof renderArtRank === "function") renderArtRank();
+  if(typeof renderArtRadar === "function") renderArtRadar();
+  if(typeof checkArtRankUp === "function") checkArtRankUp();
+  if(typeof checkExhibitReport === "function") checkExhibitReport();
+  if(typeof renderVignetteCard === "function") renderVignetteCard();
+  if(typeof checkCharLetters === "function") checkCharLetters(state.characterType);
+  if(typeof checkSecretEvents === "function") checkSecretEvents();
   if(typeof maybeShowMonthReport === "function") maybeShowMonthReport();
   if(typeof maybeShowBirthday === "function") maybeShowBirthday();
   if(typeof maybeShowDailyEvent === "function") maybeShowDailyEvent();

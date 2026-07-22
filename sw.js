@@ -1,7 +1,7 @@
 /* イラストスケジュール手帖 Service Worker
  * アプリ更新時は CACHE_VERSION の数字を上げるだけでOK(古いキャッシュは自動削除)。
  */
-const CACHE_VERSION = "v5";
+const CACHE_VERSION = "v10";
 const CACHE_NAME = "irasuto-techo-" + CACHE_VERSION;
 
 const CORE_ASSETS = [
